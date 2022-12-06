@@ -6,3 +6,5 @@ idéé 1:  Tout d'abord ce serait est un jeu de plateforme en 2D du style de Mar
 idée 2:   Faire un jeu single player ou l'on incarne une voiture qui doit échapper à la police avce différents niveaux et des obstacles à éviter.
 
 idée 3:   Faire un jeu ou l'on contrôle un avion qui doit faire le plus de chemin possible en tuant le plus d'ennemis possibles. Plus l'avion avancerait plus la difficuilté augmenterait du genre Shoot'Em Up. 
+
+README.md
