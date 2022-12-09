@@ -13,7 +13,7 @@ CAHIER DES CHARGES:
 
 - Jeu single player
 - Type: Aventure et plateforme
-- Contrôle: clavier-souris
+- Contrôle: clavier-souris (haut, bas, gauche, droite)
 - Graphisme: 2D + vue de côté + scrolling
 - 3 Niveaux (Niveau 1: années 90, Niveau 2: années 2000, Niveau 3: années 2010)
 - 3 vies representées chacune par des coeurs
@@ -21,4 +21,4 @@ CAHIER DES CHARGES:
 - Présence de PNJ: Ils attaquent le personnge principal(ce sont les ennemis) et disparaissent si le personnage les esquive ou les détruit
 - Présence de musique: Oui
 - Système de projectiles: oui, le personnage aura un pistolet à eau afin de détruire les différentes machines. Puis les projectiles dependent des niveaux
--  
+
