@@ -9,8 +9,9 @@ idée 3:   Faire un jeu ou l'on contrôle un avion qui doit faire le plus de che
 
 README.md(pyxel):https://github.com/kitao/pyxel
 
-LIen d'invitation Trello: https://trello.com/invite/nsiprojet1ereretroadventure/ATTI6d4894ac3f7726a7e4e206ddf816d3461021852B
+Lien d'invitation Trello: https://trello.com/invite/nsiprojet1ereretroadventure/ATTI6d4894ac3f7726a7e4e206ddf816d3461021852B
 
+Lien vers projet python(version pre pre pre pre alpha): www.pyxelstudio.net/studio/8yzsa4qu
 
 CAHIER DES CHARGES:
 
