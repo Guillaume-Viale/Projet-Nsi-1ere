@@ -9,6 +9,7 @@ idée 3:   Faire un jeu ou l'on contrôle un avion qui doit faire le plus de che
 
 README.md(pyxel):https://github.com/kitao/pyxel
 
+
 CAHIER DES CHARGES:
 
 - Jeu single player
@@ -21,4 +22,5 @@ CAHIER DES CHARGES:
 - Présence de PNJ: Ils attaquent le personnge principal(ce sont les ennemis) et disparaissent si le personnage les esquive ou les détruit
 - Présence de musique: Oui
 - Système de projectiles: oui, le personnage aura un pistolet à eau afin de détruire les différentes machines. Puis les projectiles dependent des niveaux
+- Jeu/inspiration: Super Mario Bros (Première version)
 
