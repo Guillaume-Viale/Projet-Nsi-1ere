@@ -13,6 +13,8 @@ Lien d'invitation Trello: https://trello.com/invite/nsiprojet1ereretroadventure/
 
 Lien vers projet python(version pre pre pre pre alpha): www.pyxelstudio.net/studio/8yzsa4qu
 
+NOM DU PROJET: RETRO ADVENTURE
+
 CAHIER DES CHARGES:
 
 - Jeu single player
