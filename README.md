@@ -8,3 +8,11 @@ idée 2:   Faire un jeu single player ou l'on incarne une voiture qui doit écha
 idée 3:   Faire un jeu ou l'on contrôle un avion qui doit faire le plus de chemin possible en tuant le plus d'ennemis possibles. Plus l'avion avancerait plus la difficuilté augmenterait du genre Shoot'Em Up. 
 
 README.md(pyxel):https://github.com/kitao/pyxel
+
+CAHIER DES CHARGES:
+
+- Jeu single player
+- Type: Aventure
+- Contrôle: clavier-souris
+- Graphisme: 2D
+- 
