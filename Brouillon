@@ -1,0 +1,36 @@
+import pyxel
+
+# taille de la fenetre 128x128 pixels
+# ne pas modifier
+pyxel.init(1024, 512, title="Retro Adventure", fps=60,quit_key = pyxel.KEY_ESCAPE)
+
+# position initiale du vaisseau
+# (origine des positions : coin haut gauche)
+vaisseau_x = 512
+vaisseau_y = 256
+vies = 3
+coordonnées_sol_y = 272
+coordonnées_sol_x_1 = 768
+coordonnées_sol_y_1 = 252
+largeur_sol = 200
+def vaisseau_deplacement(x, y):
+  
+
+    
+    
+    
+    if pyxel.btn(pyxel.KEY_RIGHT):
+        if (x < 1024) :
+            x = x + 2
+    if pyxel.btn(pyxel.KEY_LEFT):
+        if (x > 0) :
+            x = x - 2
+    #if pyxel.btn(pyxel.KEY_DOWN):
+        #if (y < 512) :
+            #y = y + 2
+    #if pyxel.btn(pyxel.KEY_UP):
+        #if (y > 0) :
+            #y = y - 2
+    
+    
+    if 0
