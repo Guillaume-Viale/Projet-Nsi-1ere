@@ -1,36 +1,106 @@
 import pyxel
 
-# taille de la fenetre 128x128 pixels
-# ne pas modifier
-pyxel.init(1024, 512, title="Retro Adventure", fps=60,quit_key = pyxel.KEY_ESCAPE)
+class Jeu:
+    
+    def __init__(self):
 
-# position initiale du vaisseau
-# (origine des positions : coin haut gauche)
-vaisseau_x = 512
-vaisseau_y = 256
-vies = 3
-coordonnées_sol_y = 272
-coordonnées_sol_x_1 = 768
-coordonnées_sol_y_1 = 252
-largeur_sol = 200
-def vaisseau_deplacement(x, y):
-  
+        # taille de la fenetre 128x128 pixels
+        # ne pas modifier
+        pyxel.init(1024, 512, title="Retro Adventure",fps=60, quit_key = pyxel.KEY_ESCAPE,display_scale= 1)
 
+        #variables liées au mouvement
+        self.vaisseau_x = 60
+        self.vaisseau_y = 256-16
+        self.turned_right = True
+        #self.sol = True
+       
+        #variable liées au sol
+        #self.coordonnees_x_sol = [0,]
+        #self.coordonnees_y_sol = [256,]
+        #self.longeur_sol = [1024,]
+        #self.largeur_sol = [20,]
+        
+        
+        # variables liées au tir
+        self.tirs_liste = []
+        self.fire_rate = 2 #obliger d'etre un diviseur 30
+        
+        pyxel.run(self.update, self.draw)
+
+
+    def vaisseau_deplacement(self):
+        """déplacement avec les touches de directions"""
+
+        if pyxel.btn(pyxel.KEY_RIGHT) and self.vaisseau_x<1024:
+            self.vaisseau_x += 4
+            self.turned_right = True
+        if pyxel.btn(pyxel.KEY_LEFT) and self.vaisseau_x>0:
+            self.vaisseau_x += -4
+            self.turned_right = False
+        #if pyxel.btn(pyxel.KEY_DOWN) and self.vaisseau_y<512:
+            #self.vaisseau_y += 4
+        #if pyxel.btn(pyxel.KEY_UP) and self.vaisseau_y>0:
+            #self.vaisseau_y += -4
+        
+        if self.vaisseau_y != 256-16:
+            self.vaisseau_y += 2
+        if pyxel.btnp(pyxel.KEY_SPACE) or pyxel.btnp(pyxel.KEY_UP):
+            if self.vaisseau_y == 256-16:
+                for i in range (10):
+                    self.vaisseau_y += -5
+           
+
+    # =====================================================
+    # == UPDATE
+    # =====================================================
+    def tirs_creation(self):
+        """création d'un tir avec la barre d'espace"""
+
+        if pyxel.btn(pyxel.MOUSE_BUTTON_LEFT):
+            if pyxel.frame_count % (30/self.fire_rate) == 0:    
+                self.tirs_liste.append([self.vaisseau_x, self.vaisseau_y+3])
+
+
+    def tirs_deplacement(self):
+        """déplacement des tirs vers le cote et suppression s'ils sortent du cadre"""
+
+        for tir in  self.tirs_liste:
+            if self.turned_right:
+                tir[0] += 6
+            else:   tir[0] -= 6
+            if  tir[0]>1024 or tir[0]<0:
+                self.tirs_liste.remove(tir)
     
-    
-    
-    if pyxel.btn(pyxel.KEY_RIGHT):
-        if (x < 1024) :
-            x = x + 2
-    if pyxel.btn(pyxel.KEY_LEFT):
-        if (x > 0) :
-            x = x - 2
-    #if pyxel.btn(pyxel.KEY_DOWN):
-        #if (y < 512) :
-            #y = y + 2
-    #if pyxel.btn(pyxel.KEY_UP):
-        #if (y > 0) :
-            #y = y - 2
-    
-    
-    if 0
+    def update(self):
+        """mise à jour des variables (30 fois par seconde)"""
+
+        # deplacement du vaisseau
+        self.vaisseau_deplacement()
+        
+         # creation des tirs en fonction de la position du vaisseau
+        self.tirs_creation()
+
+        # mise a jour des positions des tirs
+        self.tirs_deplacement()
+
+    # =====================================================
+    # == DRAW
+    # =====================================================
+    def draw(self):
+        """création et positionnement des objets (30 fois par seconde)"""
+
+        # vide la fenetre
+        pyxel.cls(0)
+
+        
+        # vaisseau (carre 16x16)
+        pyxel.rect(self.vaisseau_x, self.vaisseau_y, 16, 16, 1)
+        #sol
+        pyxel.rect(0,256,1024,20,10)
+        
+        pyxel.text(452,115,"RETRO ADVENTURE DEMO",2)
+         # tirs
+        for tir in self.tirs_liste:
+            pyxel.circ(tir[0], tir[1],2, 3)
+            
+Jeu()
