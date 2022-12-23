@@ -4,8 +4,7 @@ class Jeu:
     
     def __init__(self):
 
-        # taille de la fenetre 128x128 pixels
-        # ne pas modifier
+        
         pyxel.init(1024, 512, title="Retro Adventure",fps=60, quit_key = pyxel.KEY_ESCAPE,display_scale= 1)
 
         #variables liées au mouvement
@@ -15,15 +14,16 @@ class Jeu:
         #self.sol = True
        
         #variable liées au sol
-        #self.coordonnees_x_sol = [0,]
-        #self.coordonnees_y_sol = [256,]
-        #self.longeur_sol = [1024,]
-        #self.largeur_sol = [20,]
+        self.coordonnees_x_sol = [755,]
+        self.coordonnees_y_sol = [340,]
+        self.longeur_sol = [250,]
+        self.largeur_sol = [20,]
         
         
         # variables liées au tir
         self.tirs_liste = []
         self.fire_rate = 2 #obliger d'etre un diviseur 30
+        self.fire_range = 500 #nombre entier
         
         pyxel.run(self.update, self.draw)
 
@@ -42,12 +42,20 @@ class Jeu:
         #if pyxel.btn(pyxel.KEY_UP) and self.vaisseau_y>0:
             #self.vaisseau_y += -4
         
-        if self.vaisseau_y != 256-16:
-            self.vaisseau_y += 2
+        
+        if self.coordonnees_x_sol[0]-15<=self.vaisseau_x:
+            if self.coordonnees_x_sol[0]+self.longeur_sol[0]+15>=self.vaisseau_x:
+                if self.vaisseau_y != 340-16:
+                    self.vaisseau_y += 2
+        else:
+            if self.vaisseau_y != 356-16:
+                self.vaisseau_y += 2
+        
+        
         if pyxel.btnp(pyxel.KEY_SPACE) or pyxel.btnp(pyxel.KEY_UP):
-            if self.vaisseau_y == 256-16:
-                for i in range (10):
-                    self.vaisseau_y += -5
+            if self.vaisseau_y == 356-16:
+                for i in range (50):
+                    self.vaisseau_y += -1
            
 
     # =====================================================
@@ -58,14 +66,14 @@ class Jeu:
 
         if pyxel.btn(pyxel.MOUSE_BUTTON_LEFT):
             if pyxel.frame_count % (30/self.fire_rate) == 0:    
-                self.tirs_liste.append([self.vaisseau_x, self.vaisseau_y+3])
+                self.tirs_liste.append([self.vaisseau_x, self.vaisseau_y+3,self.turned_right])
 
 
     def tirs_deplacement(self):
         """déplacement des tirs vers le cote et suppression s'ils sortent du cadre"""
 
         for tir in  self.tirs_liste:
-            if self.turned_right:
+            if tir[2] == True:
                 tir[0] += 6
             else:   tir[0] -= 6
             if  tir[0]>1024 or tir[0]<0:
@@ -96,7 +104,8 @@ class Jeu:
         # vaisseau (carre 16x16)
         pyxel.rect(self.vaisseau_x, self.vaisseau_y, 16, 16, 1)
         #sol
-        pyxel.rect(0,256,1024,20,10)
+        pyxel.rect(0,356,1024,20,10)
+        pyxel.rect(755,340,250,20,10)
         
         pyxel.text(452,115,"RETRO ADVENTURE DEMO",2)
          # tirs
