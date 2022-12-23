@@ -4,8 +4,10 @@ class Jeu:
     
     def __init__(self):
 
+        self.display_x = 1024
+        self.display_y = 512
         
-        pyxel.init(1024, 512, title="Retro Adventure",fps=60, quit_key = pyxel.KEY_ESCAPE,display_scale= 1)
+        pyxel.init(self.display_x, self.display_y, title="Retro Adventure",fps=60, quit_key = pyxel.KEY_ESCAPE,display_scale= 1)
 
         #variables liées au mouvement
         self.vaisseau_x = 60
@@ -24,6 +26,7 @@ class Jeu:
         self.tirs_liste = []
         self.fire_rate = 2 #obliger d'etre un diviseur 30
         self.fire_range = 500 #nombre entier
+        
         
         pyxel.run(self.update, self.draw)
 
@@ -57,7 +60,8 @@ class Jeu:
                 for i in range (50):
                     self.vaisseau_y += -1
            
-
+        
+   
     # =====================================================
     # == UPDATE
     # =====================================================
@@ -76,8 +80,13 @@ class Jeu:
             if tir[2] == True:
                 tir[0] += 6
             else:   tir[0] -= 6
-            if  tir[0]>1024 or tir[0]<0:
+            if  tir[0]>self.vaisseau_x+self.fire_range or tir[0]<self.vaisseau_x-self.fire_range:
                 self.tirs_liste.remove(tir)
+    
+    def scrolling(self):
+        if self.vaisseau_x >= self.display_x//2:
+            return  
+        
     
     def update(self):
         """mise à jour des variables (30 fois par seconde)"""
@@ -90,7 +99,8 @@ class Jeu:
 
         # mise a jour des positions des tirs
         self.tirs_deplacement()
-
+        
+        
     # =====================================================
     # == DRAW
     # =====================================================
@@ -103,13 +113,16 @@ class Jeu:
         
         # vaisseau (carre 16x16)
         pyxel.rect(self.vaisseau_x, self.vaisseau_y, 16, 16, 1)
+        # tirs
+        for tir in self.tirs_liste:
+            pyxel.circ(tir[0], tir[1],2, 3)
+        
         #sol
         pyxel.rect(0,356,1024,20,10)
         pyxel.rect(755,340,250,20,10)
         
         pyxel.text(452,115,"RETRO ADVENTURE DEMO",2)
-         # tirs
-        for tir in self.tirs_liste:
-            pyxel.circ(tir[0], tir[1],2, 3)
+        
+        
             
 Jeu()
