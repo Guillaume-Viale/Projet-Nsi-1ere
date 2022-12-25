@@ -15,6 +15,8 @@ Lien d'invitation Trello: https://trello.com/invite/nsiprojet1ereretroadventure/
 Lien vers projet python(version pre pre pre pre alpha): www.pyxelstudio.net/studio/8yzsa4qu
 
 Lien vers execution du projet python: www.pyxelstudio.net/ps/x8urc762
+
+Lien vers la bande-son du jeu: https://drive.google.com/file/d/1GizMf30ylk2viueBFmC_0wYmMbdHe6f8/view?usp=share_link
  
 NOM DU PROJET: RETRO ADVENTURE
 
