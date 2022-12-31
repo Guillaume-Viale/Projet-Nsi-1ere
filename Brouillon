@@ -28,6 +28,12 @@ class Jeu:
         self.fire_range = 500 #nombre entier
         
         
+        pyxel.load("res.pyxres")
+        pyxel.image(0).load(0, 0, "")
+
+
+        
+        
         pyxel.run(self.update, self.draw)
 
 
@@ -80,12 +86,8 @@ class Jeu:
             if tir[2] == True:
                 tir[0] += 6
             else:   tir[0] -= 6
-            if  tir[0]>self.vaisseau_x+self.fire_range or tir[0]<self.vaisseau_x-self.fire_range:
+            if tir[0]>self.vaisseau_x+self.fire_range or tir[0]<self.vaisseau_x-self.fire_range:
                 self.tirs_liste.remove(tir)
-    
-    def scrolling(self):
-        if self.vaisseau_x >= self.display_x//2:
-            return  
         
     
     def update(self):
@@ -113,6 +115,7 @@ class Jeu:
         
         # vaisseau (carre 16x16)
         pyxel.rect(self.vaisseau_x, self.vaisseau_y, 16, 16, 1)
+       
         # tirs
         for tir in self.tirs_liste:
             pyxel.circ(tir[0], tir[1],2, 3)
