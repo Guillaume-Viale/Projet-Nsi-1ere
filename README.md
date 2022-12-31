@@ -43,6 +43,14 @@ CAHIER DES CHARGES:
 - Choix du personnages au début du jeu (garcon ou fille)
 - MONDE : Mechant 1 = walkman; Mechant 2 = Ordinateur qui lance des 0 et 1
 
+LISTES DES SONS A DEVELOPPER:
+
+- bruits des projectiles
+- bruits des pas
+- bruits à chaque saut 
+- bruits quand le perso touche des obstacles
+- bruuits quand le perso perd une vie 
+
 
 IMAGES D'INSPIRATION:
 
