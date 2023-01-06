@@ -28,12 +28,12 @@ class Jeu:
         self.fire_range = 500 #nombre entier
         
         #variables liées au MENU
-        self.start_game == false
-       
-        self.quit == false
+        self.start_game = False
+        self.menu = True
+        self.quit = False
         
         pyxel.load("res.pyxres")
-        pyxel.image(0).load(0, 0, "")
+        #pyxel.image(0).load(0, 0, "")
 
 
         
@@ -102,7 +102,7 @@ class Jeu:
                         self.menu == False
                    
                     if 450<mouse_y<525:
-                        self.menu == false
+                        self.menu == False
                         pyxel.quit()
                         
     def update(self):
@@ -117,6 +117,8 @@ class Jeu:
         # mise a jour des positions des tirs
         self.tirs_deplacement()
         
+        self.menu()
+        
         
     # =====================================================
     # == DRAW
@@ -127,13 +129,14 @@ class Jeu:
         # vide la fenetre
         pyxel.cls(0)
         
-        pyxel.text(452,115,"RETRO ADVENTURE DEMO",7)
-        rectb(400, 250, 224, 75, 7)
+        if self.menu == True:
+            pyxel.text(452,115,"RETRO ADVENTURE DEMO",7)
+            pyxel.rectb(400, 250, 224, 75, 7)
        
-        rectb(400, 450, 224, 75, 7)
-        pyxel.text(452,282,"START")
+            pyxel.rectb(400, 450, 224, 75, 7)
+            pyxel.text(452,282,"START")
         
-        pyxel.text(452,482,"QUIT")
+            pyxel.text(452,482,"QUIT")
         
         
         if self.start_game == True:
@@ -143,7 +146,7 @@ class Jeu:
        
             # tirs
             for tir in self.tirs_liste:
-            pyxel.circ(tir[0], tir[1],2, 3)
+                pyxel.circ(tir[0], tir[1],2, 3)
         
             #sol
             pyxel.rect(0,356,1024,20,10)
@@ -154,3 +157,4 @@ class Jeu:
         
             
 Jeu()
+
