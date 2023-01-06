@@ -27,6 +27,10 @@ class Jeu:
         self.fire_rate = 2 #obliger d'etre un diviseur 30
         self.fire_range = 500 #nombre entier
         
+        #variables liées au MENU
+        self.start_game == false
+       
+        self.quit == false
         
         pyxel.load("res.pyxres")
         pyxel.image(0).load(0, 0, "")
@@ -89,10 +93,21 @@ class Jeu:
             if tir[0]>self.vaisseau_x+self.fire_range or tir[0]<self.vaisseau_x-self.fire_range:
                 self.tirs_liste.remove(tir)
         
-    
+    def menu(self):
+        if self.menu == True:
+            if pyxel.btn(pyxel.MOUSE_BUTTON_LEFT):
+                if 400<mouse_x<624:
+                    if 250<mouse_y<325:
+                        self.start_game == True
+                        self.menu == False
+                   
+                    if 450<mouse_y<525:
+                        self.menu == false
+                        pyxel.quit()
+                        
     def update(self):
         """mise à jour des variables (30 fois par seconde)"""
-
+        
         # deplacement du vaisseau
         self.vaisseau_deplacement()
         
@@ -111,20 +126,30 @@ class Jeu:
 
         # vide la fenetre
         pyxel.cls(0)
-
         
-        # vaisseau (carre 16x16)
-        pyxel.rect(self.vaisseau_x, self.vaisseau_y, 16, 16, 1)
+        pyxel.text(452,115,"RETRO ADVENTURE DEMO",7)
+        rectb(400, 250, 224, 75, 7)
        
-        # tirs
-        for tir in self.tirs_liste:
+        rectb(400, 450, 224, 75, 7)
+        pyxel.text(452,282,"START")
+        
+        pyxel.text(452,482,"QUIT")
+        
+        
+        if self.start_game == True:
+            pyxel.cls(0)
+            # vaisseau (carre 16x16)
+            pyxel.rect(self.vaisseau_x, self.vaisseau_y, 16, 16, 1)
+       
+            # tirs
+            for tir in self.tirs_liste:
             pyxel.circ(tir[0], tir[1],2, 3)
         
-        #sol
-        pyxel.rect(0,356,1024,20,10)
-        pyxel.rect(755,340,250,20,10)
+            #sol
+            pyxel.rect(0,356,1024,20,10)
+            pyxel.rect(755,340,250,20,10)
         
-        pyxel.text(452,115,"RETRO ADVENTURE DEMO",2)
+            pyxel.text(452,115,"RETRO ADVENTURE DEMO",2)
         
         
             
