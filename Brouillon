@@ -14,6 +14,11 @@ fenetre.blit(pierre,(20,20))
 pygame.display.flip()
 #personnage=pygame.image.load("MAIN_CHARACTER.gif").convert_alpha()
 #fenetre.blit(personnage(x,y))
+# listes de sons upload
+pygame.mixer.music.load("RETRO-ADVENTURE-MUSIC.wav")
+pygame.mixer.music.play()
+
+
 
 while boucle:
     for event in pygame.event.get():
