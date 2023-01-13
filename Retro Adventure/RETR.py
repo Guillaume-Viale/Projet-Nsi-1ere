@@ -1,3 +1,6 @@
+#ecrire PIP install pygame dans la console
+#fenetre de 700p * 500p
+#RETRO ADVENTURE
 import pygame
 from pygame.locals import *
 
