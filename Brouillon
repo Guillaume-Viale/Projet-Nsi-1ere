@@ -1,160 +1,23 @@
-import pyxel
+import pygame
+from pygame.locals import *
 
-class Jeu:
-    
-    def __init__(self):
+pygame.init()
+fenetre = pygame.display.set_mode((700, 500))
+x=25
+y=25
+boucle=1
+fond=pygame.image.load("pixil-frame-0(5).png").convert()
+fenetre.blit(fond, (0,0))
+pierre=pygame.image.load("PIERRE.png").convert_alpha()
+pygame.display.flip()
+fenetre.blit(pierre,(20,20))
+pygame.display.flip()
+#personnage=pygame.image.load("MAIN_CHARACTER.gif").convert_alpha()
+#fenetre.blit(personnage(x,y))
 
-        self.display_x = 1024
-        self.display_y = 512
-        
-        pyxel.init(self.display_x, self.display_y, title="Retro Adventure",fps=60, quit_key = pyxel.KEY_ESCAPE,display_scale= 1)
+while boucle:
+    for event in pygame.event.get():
 
-        #variables liées au mouvement
-        self.vaisseau_x = 60
-        self.vaisseau_y = 256-16
-        self.turned_right = True
-        #self.sol = True
-       
-        #variable liées au sol
-        self.coordonnees_x_sol = [755,]
-        self.coordonnees_y_sol = [340,]
-        self.longeur_sol = [250,]
-        self.largeur_sol = [20,]
-        
-        
-        # variables liées au tir
-        self.tirs_liste = []
-        self.fire_rate = 2 #obliger d'etre un diviseur 30
-        self.fire_range = 500 #nombre entier
-        
-        #variables liées au MENU
-        self.start_game = False
-        self.menu = True
-        self.quit = False
-        
-        pyxel.load("res.pyxres")
-        #pyxel.image(0).load(0, 0, "")
-
-
-        
-        
-        pyxel.run(self.update, self.draw)
-
-
-    def vaisseau_deplacement(self):
-        """déplacement avec les touches de directions"""
-
-        if pyxel.btn(pyxel.KEY_RIGHT) and self.vaisseau_x<1024:
-            self.vaisseau_x += 4
-            self.turned_right = True
-        if pyxel.btn(pyxel.KEY_LEFT) and self.vaisseau_x>0:
-            self.vaisseau_x += -4
-            self.turned_right = False
-        #if pyxel.btn(pyxel.KEY_DOWN) and self.vaisseau_y<512:
-            #self.vaisseau_y += 4
-        #if pyxel.btn(pyxel.KEY_UP) and self.vaisseau_y>0:
-            #self.vaisseau_y += -4
-        
-        
-        if self.coordonnees_x_sol[0]-15<=self.vaisseau_x:
-            if self.coordonnees_x_sol[0]+self.longeur_sol[0]+15>=self.vaisseau_x:
-                if self.vaisseau_y != 340-16:
-                    self.vaisseau_y += 2
-        else:
-            if self.vaisseau_y != 356-16:
-                self.vaisseau_y += 2
-        
-        
-        if pyxel.btnp(pyxel.KEY_SPACE) or pyxel.btnp(pyxel.KEY_UP):
-            if self.vaisseau_y == 356-16:
-                for i in range (50):
-                    self.vaisseau_y += -1
-           
-        
-   
-    # =====================================================
-    # == UPDATE
-    # =====================================================
-    def tirs_creation(self):
-        """création d'un tir avec la barre d'espace"""
-
-        if pyxel.btn(pyxel.MOUSE_BUTTON_LEFT):
-            if pyxel.frame_count % (30/self.fire_rate) == 0:    
-                self.tirs_liste.append([self.vaisseau_x, self.vaisseau_y+3,self.turned_right])
-
-
-    def tirs_deplacement(self):
-        """déplacement des tirs vers le cote et suppression s'ils sortent du cadre"""
-
-        for tir in  self.tirs_liste:
-            if tir[2] == True:
-                tir[0] += 6
-            else:   tir[0] -= 6
-            if tir[0]>self.vaisseau_x+self.fire_range or tir[0]<self.vaisseau_x-self.fire_range:
-                self.tirs_liste.remove(tir)
-        
-    def menu(self):
-        if self.menu == True:
-            if pyxel.btn(pyxel.MOUSE_BUTTON_LEFT):
-                if 400<mouse_x<624:
-                    if 250<mouse_y<325:
-                        self.start_game == True
-                        self.menu == False
-                   
-                    if 450<mouse_y<525:
-                        self.menu == False
-                        pyxel.quit()
-                        
-    def update(self):
-        """mise à jour des variables (30 fois par seconde)"""
-        
-        # deplacement du vaisseau
-        self.vaisseau_deplacement()
-        
-         # creation des tirs en fonction de la position du vaisseau
-        self.tirs_creation()
-
-        # mise a jour des positions des tirs
-        self.tirs_deplacement()
-        
-        self.menu()
-        
-        
-    # =====================================================
-    # == DRAW
-    # =====================================================
-    def draw(self):
-        """création et positionnement des objets (30 fois par seconde)"""
-
-        # vide la fenetre
-        pyxel.cls(0)
-        
-        if self.menu == True:
-            pyxel.text(452,115,"RETRO ADVENTURE DEMO",7)
-            pyxel.rectb(400, 250, 224, 75, 7)
-       
-            pyxel.rectb(400, 450, 224, 75, 7)
-            pyxel.text(452,282,"START")
-        
-            pyxel.text(452,482,"QUIT")
-        
-        
-        if self.start_game == True:
-            pyxel.cls(0)
-            # vaisseau (carre 16x16)
-            pyxel.rect(self.vaisseau_x, self.vaisseau_y, 16, 16, 1)
-       
-            # tirs
-            for tir in self.tirs_liste:
-                pyxel.circ(tir[0], tir[1],2, 3)
-        
-            #sol
-            pyxel.rect(0,356,1024,20,10)
-            pyxel.rect(755,340,250,20,10)
-        
-            pyxel.text(452,115,"RETRO ADVENTURE DEMO",2)
-        
-        
-            
-Jeu()
+        if event.type == QUIT:
+            boucle = 0
 
