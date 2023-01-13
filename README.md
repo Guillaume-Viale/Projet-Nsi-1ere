@@ -14,6 +14,8 @@ Lien d'invitation Trello: https://trello.com/invite/nsiprojet1ereretroadventure/
 
 Lien vers la bande-son du jeu: https://drive.google.com/file/d/1GizMf30ylk2viueBFmC_0wYmMbdHe6f8/view?usp=share_link
  
+nom du programme python: RETR.py
+brouillon: BROUILLON.md
 NOM DU PROJET: RETRO ADVENTURE
 
 CAHIER DES CHARGES:
