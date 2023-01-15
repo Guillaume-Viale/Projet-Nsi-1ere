@@ -14,6 +14,8 @@ fenetre.blit(pierre,(20,20))
 pygame.display.flip()
 #personnage=pygame.image.load("MAIN_CHARACTER.gif").convert_alpha()
 #fenetre.blit(personnage(x,y))
+Class sound:
+    
 
 while boucle:
     for event in pygame.event.get():
