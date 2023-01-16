@@ -21,4 +21,4 @@ while boucle:
     for event in pygame.event.get():
 
         if event.type == QUIT:
-            boucle = 0
+            boucle = 0 
