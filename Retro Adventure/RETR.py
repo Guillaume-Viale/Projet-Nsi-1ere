@@ -21,11 +21,11 @@ clock = pygame.time.Clock()
 #personnage=pygame.image.load("MAIN_CHARACTER.gif").convert_alpha()
 #fenetre.blit(personnage(x,y))
 def handle_keys(keys: list, pos: pygame.Rect):
-    if keys[pygame.K_z]: # Forward
+    if keys[pygame.K_w]: # Forward
         # If z is pressed
         pos.y -= 2
     
-    if keys[pygame.K_q]:
+    if keys[pygame.K_a]:
         # If q is pressed
         pos.x -= 2
      
