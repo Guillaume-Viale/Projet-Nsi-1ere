@@ -1,5 +1,6 @@
 import pygame
 from pygame.locals import *
+from pygame import mixer
 
 pygame.init()
 fenetre = pygame.display.set_mode((700, 500))
@@ -15,7 +16,10 @@ pygame.display.flip()
 #personnage=pygame.image.load("MAIN_CHARACTER.gif").convert_alpha()
 #fenetre.blit(personnage(x,y))
 Class sound:
-    
+mixer.init()
+mixer.music.load("")
+mixer.music.set_volume(0.7)
+mixer.music.play()    
 
 while boucle:
     for event in pygame.event.get():
