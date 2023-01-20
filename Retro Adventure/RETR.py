@@ -9,10 +9,9 @@ pygame.init()
 fenetre = pygame.display.set_mode((700, 500))
 pygame.display.toggle_fullscreen()
 boucle=1
-fond=pygame.image.load("CielBleu700500.png").convert()
+fond=pygame.image.load("CielFinal.20.png").convert()
 fond=pygame.transform.scale(fond, (700,500))
 fenetre.blit(fond, (0,0))
-
 pierre=pygame.image.load("PIERRE.png").convert_alpha()
 pygame.display.flip()
 x_movement=20
@@ -68,6 +67,6 @@ pygame.mixer.music.load("RETRO-ADVENTURE-MUSIC.wav")
 pygame.mixer.music.set_volume(3.0)
 pygame.mixer.music.play(loops=-1)
     # Quit
-    pygame.quit()
+#pygame.quit()
 if __name__ == '__main__':
     main()
