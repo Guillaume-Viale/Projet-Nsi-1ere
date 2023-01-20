@@ -3,6 +3,7 @@
 #RETRO ADVENTURE
 import pygame
 from pygame.locals import *
+from pygame import mixer
 
 pygame.init()
 fenetre = pygame.display.set_mode((700, 500))
@@ -61,6 +62,11 @@ def main():
         handle_keys(KEYS_PRESSED, PLAYER_RECT)
         # Call draw function
         draw(PLAYER_RECT)
+#Class sound:
+pygame.mixer.init()
+pygame.mixer.music.load("RETRO-ADVENTURE-MUSIC.wav")
+pygame.mixer.music.set_volume(3.0)
+pygame.mixer.music.play(loops=-1)
     # Quit
     pygame.quit()
 if __name__ == '__main__':
