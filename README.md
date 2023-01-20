@@ -8,6 +8,8 @@ idée 2:  Faire un jeu single player ou l'on incarne une voiture qui doit échap
 
 idée 3:   Faire un jeu ou l'on contrôle un avion qui doit faire le plus de chemin possible en tuant le plus d'ennemis possibles. Plus l'avion avancerait plus la difficuilté augmenterait du genre Shoot'Em Up. 
 
+Afin de trouver notre code il est possible d'aller se rendre sur le fichier Retro Adventure puis sur le fichier RETR.py 
+
 Documentation(pygame):https://www.pygame.org/docs/
 
 Lien d'invitation Trello: https://trello.com/invite/nsiprojet1ereretroadventure/ATTI6d4894ac3f7726a7e4e206ddf816d3461021852B
