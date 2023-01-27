@@ -11,7 +11,9 @@ pygame.display.toggle_fullscreen()
 boucle=1
 fond=pygame.image.load("CielFinal.20.png").convert()
 fond=pygame.transform.scale(fond, (700,500))
+sol=pygame.image.load("pixil-frameHerbe.png").convert_alpha()
 fenetre.blit(fond, (0,0))
+
 pierre=pygame.image.load("PIERRE.png").convert_alpha()
 pygame.display.flip()
 x_movement=20
@@ -21,6 +23,18 @@ clock = pygame.time.Clock()
 #personnage=pygame.image.load("MAIN_CHARACTER.gif").convert_alpha()
 #fenetre.blit(personnage(x,y))
 def handle_keys(keys: list, pos: pygame.Rect):
+    if pos.y == 320:
+        state= True
+    else:
+        state= False
+    if pos.y != 320:
+        pos.y += 5
+    if state==True :
+        if keys[pygame.K_SPACE]:
+            # If space is pressed
+            for i in range(100):
+                pos.y-=1
+         
     if keys[pygame.K_w]: # Forward
         # If z is pressed
         pos.y -= 2
@@ -36,10 +50,12 @@ def handle_keys(keys: list, pos: pygame.Rect):
         pos.x += 2
 def draw(pos: pygame.Rect):
     # Fond
+      
     fenetre.blit(fond, (0,0))
     # Blit player
     fenetre.blit(pierre, pos)
-
+    for i in range (-450,350,45):
+        fenetre.blit(sol, (i,125))  
     # Update
     pygame.display.update()
 def main():
@@ -56,6 +72,7 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
+                pygame.quit()
         KEYS_PRESSED = pygame.key.get_pressed()
         # Handle the keys
         handle_keys(KEYS_PRESSED, PLAYER_RECT)
@@ -67,6 +84,6 @@ pygame.mixer.music.load("RETRO-ADVENTURE-MUSIC.wav")
 pygame.mixer.music.set_volume(3.0)
 pygame.mixer.music.play(loops=-1)
     # Quit
-#pygame.quit()
+   
 if __name__ == '__main__':
     main()
