@@ -56,12 +56,13 @@ clock = pygame.time.Clock()
 tirs_liste = []
 
 def draw(inMenu,GameOver,scoreTexte,vie):
-    # Fond image, du jeu
+    #Menu de depart du jeu
     if inMenu:
         fenetre.blit(fondMain,(0,0))
         fenetre.blit(starttext, (250,350))
         fenetre.blit(Title,(220,100))
     if inMenu == False:
+        #JEU
         fenetre.blit(fond, (0,0))
         if vie == 3:
             fenetre.blit(vie1,(-300,-150))
@@ -82,15 +83,18 @@ def draw(inMenu,GameOver,scoreTexte,vie):
             pygame.display.flip
         fenetre.blit(joueur.image,joueur.rect)
         fenetre.blit(ennemi.image,ennemi.rect)
-
+        #sol
         for i in range (-450,350,45):
             fenetre.blit(sol_herbe, (i,125))
             fenetre.blit(sol_terre, (i+50,175))
             fenetre.blit(sol_terre, (i+50,205))
             fenetre.blit(sol_terre, (i+50,235))
+        #score
         fenetre.blit(scoreTexte,(600,40))
+        #tir
         for tir in tirs_liste:
             fenetre.blit(vie1,(tir[0],tir[1]))
+        #menu de Game Over
         if GameOver == True:
             inMenu = True
             fenetre.blit(fondMain,(0,0))
@@ -107,6 +111,7 @@ def main(inMenu,GameOver,vie,score):
         time = clock.get_time
         # Event handler
         for event in pygame.event.get():
+            #savoir si le clic gauche est activé
             if pygame.mouse.get_pressed()[0]:
                 inMenu = False
                 MouseD = True
@@ -118,24 +123,33 @@ def main(inMenu,GameOver,vie,score):
                 run = False
 
         KEYS_PRESSED = pygame.key.get_pressed()
+        #mouvement
         if KEYS_PRESSED[K_RIGHT]:
+            #droite --> fleche droite
             joueur.move_right()
         if KEYS_PRESSED[K_LEFT]:
+            #gauche --> fleche gauche
             joueur.move_left()
         if KEYS_PRESSED[K_UP]:
+                #saut
                 joueur.move_jump()
         if joueur.rect.y==0 or KEYS_PRESSED[K_UP]==False:
             while joueur.rect.y!=100:
+                #gravité
                 joueur.rect.y+=1
 
         if KEYS_PRESSED[K_q]:
+            #pour perdre une vie(temporaire)
             vie -= 1
         if vie <=0:
+            #mort
             GameOver = True
         if MouseD == True:
+            #rajoute du score(temporaire)
             score = str(int(score) + 1)
         scoreTexte = font.render(score, True, white)
         if KEYS_PRESSED[pygame.K_ESCAPE]:
+            #quit quand on appuit sur esc
             pygame.quit()
             run = False
 
