@@ -27,21 +27,18 @@ CAHIER DES CHARGES:
 - Contrôle: clavier-souris (haut, bas, gauche, droite)
      - Flèche droite = droite
      - Flèche gauche = gauche
-     - Flèche haut = haut
-     - Flèche bas = bas
-     - Espace = sauter
+     - Flèche haut = sauter
+     - Espace = tirer
      - Clic droit souris = tirer 
-- Graphisme: 2D + vue de côté + scrolling
-- 3 Niveaux (Niveau 1: années 90, Niveau 2: années 2000, Niveau 3: années 2010)
+- Graphisme: 2D + vue de côté 
+- 3 Vagues de monstres à éliminer
 - 3 vies representées chacune par des coeurs
-- Plus les anneés avancent plus la diffiulté augmente afin de représenter l'évolution de la technologie
+- Plus les anneés avancent, les monstres change afin de représenter l'évolution de la technologie
 - Présence de PNJ: Ils attaquent le personnge principal(ce sont les ennemis) et disparaissent si le personnage les esquive ou les détruit
 - Présence de musique: Oui
 - Système de projectiles: oui, le personnage aura un pistolet à eau afin de détruire les différentes machines. Puis les projectiles dependent des niveaux
 - Jeu/inspiration: Super Mario Bros (Première version)
-- Monde qui change selon les niveaux et les époques
-- Choix du personnages au début du jeu (garcon ou fille)
-- MONDE : Mechant 1 = walkman; Mechant 2 = Ordinateur qui lance des 0 et 1
+- MONDE : Mechant 1 = imprimante; Mechant 2 = antenne; Mechant 3: smartphone
 
 LISTES DES SONS A DEVELOPPER:
 
