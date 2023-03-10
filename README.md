@@ -1,4 +1,5 @@
 # Projet-Nsi-1ere
+ & 'C:\Program Files\python\python.exe' -m pip install pyxel
 Projet NSI 1ere; Groupe: Yannick Tamko, Valentin Bernacki, Guillaume Viale
 
 Tous les fichiers utilisés sont dans le répertoir "Projet-NSI-1ere". Le bon fichier contenant le code est "RETR copie.py".
