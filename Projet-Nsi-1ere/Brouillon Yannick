@@ -24,9 +24,9 @@ sol_terre=pygame.transform.scale(sol_terre,(675,482))
 vie1=pygame.image.load("Coeur_Heros.png").convert_alpha()
 vie2=pygame.image.load("CoeurPerduHeros.png").convert_alpha()
 balle=pygame.image.load("Projectile.png").convert_alpha()
-mechant1=pygame.image.load("Antenne.png").convert_alpha()
+#mechant1=pygame.image.load("Antenne.png").convert_alpha()
 mechant2=pygame.image.load("Imprimante.png").convert_alpha()
-mechant3=pygame.image.load("pixil-frameSmartphone.png").convert_alpha()
+#mechant3=pygame.image.load("pixil-frameSmartphone.png").convert_alpha()
 #mechant4=pygame.image.load("").convert_alpha()
 joueur=Player()
 ennemi=Monstre()
@@ -105,10 +105,7 @@ def draw(inMenu,GameOver,scoreTexte,vie):
 
     pygame.display.update()
 def main(inMenu, GameOver, vie, score, ):
-    PLAYER_RECT = joueur.get_rect(center=(
-    fenetre.get_width()//2,
-    fenetre.get_height()//2
-    ))
+    
     run = True
     while run:
         # Tick at n FPS
@@ -133,10 +130,11 @@ def main(inMenu, GameOver, vie, score, ):
 
                 if event.type == pygame.QUIT:
                     run = False
-
+        
         KEYS_PRESSED = pygame.key.get_pressed()
         if KEYS_PRESSED[K_RIGHT]:
             joueur.move_right()
+
         if KEYS_PRESSED[K_LEFT]:
             joueur.move_left()
         if KEYS_PRESSED[K_UP]:
@@ -144,11 +142,17 @@ def main(inMenu, GameOver, vie, score, ):
         if joueur.rect.y==0 or KEYS_PRESSED[K_UP]==False:
             while joueur.rect.y!=100:
                 joueur.rect.y+=1
-           
+        
         if KEYS_PRESSED[K_q]:
             vie -= 1
         if vie <=0:
             GameOver = True
+        if joueur.rect.x > ennemi.rect.x:
+            ennemi.move_right()
+        else: joueur.rect.x < ennemi.rect.x:
+            ennemi.move_left()
+        elif joueur.rect.x < ennemi.rect.x:
+             
         if MouseD == True:
             score = str(int(score) + 1)
         scoreTexte = font.render(score, True, white)
