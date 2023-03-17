@@ -2,7 +2,8 @@
  & 'C:\Program Files\python\python.exe' -m pip install pyxel
 Projet NSI 1ere; Groupe: Yannick Tamko, Valentin Bernacki, Guillaume Viale
 
-Tous les fichiers utilisés sont dans le répertoir "Projet-NSI-1ere". Le bon fichier contenant le code est "RETR copie.py".
+Tous les fichiers utilisés sont dans les répertoirs "Modifications_valentin_jeu" et "Projet-NSI-1ere".
+Il y a certaines fonctionnalités dans les deux que nous devront fusionner. Le bon fichier contenant le code est "RETR copie.py".
 
 idéé 1:  Tout d'abord ce serait est un jeu de plateforme en 2D du style de Mario. Notre héro serait un homme issu des annneés 80. Les antagonitese seraient les différentes inventions technologique depuis les annneés 80 jusqu'à notre ère.
 
