@@ -2,6 +2,7 @@
 #fenetre de 700p * 500p
 #RETRO ADVENTURE
 import pygame
+import math
 from pygame.locals import *
 from pygame import mixer
 from player import *
@@ -12,9 +13,9 @@ fenetre = pygame.display.set_mode((700, 500))
 #pygame.display.toggle_fullscreen()
 boucle=1
 
-#IMAGES de tous les éléments du terrain 
-fond = pygame.image.load("CielFinal_20.png").convert()
-fond = pygame.transform.scale(fond, (700,500))
+#IMAGE
+fond=pygame.image.load("CielFinal_20.png").convert()
+fond=pygame.transform.scale(fond, (700,500))
 fondMain=pygame.image.load("FondMainmenu.jpg").convert()
 fondMain=pygame.transform.scale(fondMain,(700,500))
 sol_herbe=pygame.image.load("pixil-frameHerbe.png").convert_alpha()
@@ -32,11 +33,12 @@ ennemi=Monstre()
 
 
 #GAMEPLAY
-score = '0'
+score = 0
 vie = 3
+niveau = 1
 
 
-#TEXTE du menu d'ouverture du jeu
+#TEXTE
 white = (255, 255, 255)
 black = (0, 0, 0)
 font=pygame.font.Font('Minecraftia-Regular.ttf', 25)
@@ -45,7 +47,7 @@ starttext=font.render('CLICK TO START', True, white)
 gameover=font.render('GAME OVER',True,white)
 
 
-#Variables à ne PAS_CHANGER
+#PAS_CHANGER
 FPS = 60
 time = 0
 MouseD = False
@@ -55,14 +57,13 @@ GameOver = False
 clock = pygame.time.Clock()
 tirs_liste = []
 
-def draw(inMenu,GameOver,scoreTexte,vie):
-    #Menu de depart du jeu
+def draw(inMenu,GameOver,scoreTexte,vie,levelTexte):
+    # Fond
     if inMenu:
         fenetre.blit(fondMain,(0,0))
         fenetre.blit(starttext, (250,350))
         fenetre.blit(Title,(220,100))
     if inMenu == False:
-        #JEU
         fenetre.blit(fond, (0,0))
         if vie == 3:
             fenetre.blit(vie1,(-300,-150))
@@ -83,18 +84,16 @@ def draw(inMenu,GameOver,scoreTexte,vie):
             pygame.display.flip
         fenetre.blit(joueur.image,joueur.rect)
         fenetre.blit(ennemi.image,ennemi.rect)
-        #sol
+        
         for i in range (-450,350,45):
             fenetre.blit(sol_herbe, (i,125))
             fenetre.blit(sol_terre, (i+50,175))
             fenetre.blit(sol_terre, (i+50,205))
             fenetre.blit(sol_terre, (i+50,235))
-        #score
-        fenetre.blit(scoreTexte,(600,40))
-        #tir
+        fenetre.blit(scoreTexte,(550,40))
+        fenetre.blit(levelTexte,(550,80))
         for tir in tirs_liste:
             fenetre.blit(vie1,(tir[0],tir[1]))
-        #menu de Game Over
         if GameOver == True:
             inMenu = True
             fenetre.blit(fondMain,(0,0))
@@ -102,7 +101,9 @@ def draw(inMenu,GameOver,scoreTexte,vie):
             pygame.display.flip
 
     pygame.display.update()
-def main(inMenu,GameOver,vie,score):
+def main(inMenu,GameOver,vie,score,niveau):
+    ir = 0
+    ig = 0
 
     run = True
     while run:
@@ -111,7 +112,6 @@ def main(inMenu,GameOver,vie,score):
         time = clock.get_time
         # Event handler
         for event in pygame.event.get():
-            #savoir si le clic gauche est activé
             if pygame.mouse.get_pressed()[0]:
                 inMenu = False
                 MouseD = True
@@ -123,43 +123,47 @@ def main(inMenu,GameOver,vie,score):
                 run = False
 
         KEYS_PRESSED = pygame.key.get_pressed()
-        #mouvement
+        
         if KEYS_PRESSED[K_RIGHT]:
-            #droite --> fleche droite
-            joueur.move_right()
+            joueur.move_right(ir)
+            ir += 1
         if KEYS_PRESSED[K_LEFT]:
-            #gauche --> fleche gauche
-            joueur.move_left()
+            joueur.move_left(ig)
+            ig += 1
         if KEYS_PRESSED[K_UP]:
-                #saut
                 joueur.move_jump()
         if joueur.rect.y==0 or KEYS_PRESSED[K_UP]==False:
             while joueur.rect.y!=100:
-                #gravité
                 joueur.rect.y+=1
-
+           
         if KEYS_PRESSED[K_q]:
-            #pour perdre une vie(temporaire)
             vie -= 1
         if vie <=0:
-            #mort
             GameOver = True
+
         if MouseD == True:
-            #rajoute du score(temporaire)
-            score = str(int(score) + 1)
-        scoreTexte = font.render(score, True, white)
+            score = int(score) + 1
+
+
+        Affscore = 'score '
+        Affscore += str(score)
+
+        Afflevel = 'level '
+        Afflevel += str(niveau) 
+            
+        scoreTexte = font.render(Affscore, True, white)
+        levelTexte = font.render(Afflevel, True, white)
         if KEYS_PRESSED[pygame.K_ESCAPE]:
-            #quit quand on appuit sur esc
             pygame.quit()
             run = False
 
         #Tir
-
+    
 
 
 
         # Call draw function
-        draw(inMenu,GameOver,scoreTexte,vie)
+        draw(inMenu,GameOver,scoreTexte,vie,levelTexte)
 
 
 
@@ -172,5 +176,5 @@ pygame.mixer.music.set_volume(3.0)
 pygame.mixer.music.play(loops=-1)
 
 if __name__ == '__main__':
-    main(inMenu,GameOver,vie,score)
+    main(inMenu,GameOver,vie,score,niveau)
 pygame.quit()
