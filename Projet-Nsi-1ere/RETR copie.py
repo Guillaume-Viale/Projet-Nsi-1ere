@@ -45,25 +45,27 @@ font=pygame.font.Font('Minecraftia-Regular.ttf', 25)
 Title=font.render('RETRO ADVENTURE', False, white)
 starttext=font.render('CLICK TO START', True, white)
 gameover=font.render('GAME OVER',True,white)
-
+endtext=font.render('TOO BAD, TRY AGAIN !', True, white)
 
 #PAS_CHANGER
 FPS = 60
 time = 0
 MouseD = False
 inMenu = True
+inGame = False
+inEndMenu = False
 state=False
 GameOver = False
 clock = pygame.time.Clock()
 tirs_liste = []
 
-def draw(inMenu,GameOver,scoreTexte,vie,levelTexte):
+def draw(inMenu,inGame,inEndMenu,GameOver,scoreTexte,vie,levelTexte):
     # Fond
     if inMenu:
         fenetre.blit(fondMain,(0,0))
         fenetre.blit(starttext, (250,350))
         fenetre.blit(Title,(220,100))
-    if inMenu == False:
+    if inGame == True:
         fenetre.blit(fond, (0,0))
         if vie == 3:
             fenetre.blit(vie1,(-300,-150))
@@ -94,14 +96,13 @@ def draw(inMenu,GameOver,scoreTexte,vie,levelTexte):
         fenetre.blit(levelTexte,(550,80))
         for tir in tirs_liste:
             fenetre.blit(vie1,(tir[0],tir[1]))
-        if GameOver == True:
-            inMenu = True
-            fenetre.blit(fondMain,(0,0))
-            fenetre.blit(gameover,(230,500))
-            pygame.display.flip
+    if inEndMenu == True: 
+        fenetre.blit(fondMain,(0,0))
+        fenetre.blit(endtext, (250,350))
+        fenetre.blit(gameover,(220,100)) 
 
     pygame.display.update()
-def main(inMenu,GameOver,vie,score,niveau):
+def main(inMenu,inGame,inEndMenu, GameOver,vie,score,niveau):
     ir = 0
     ig = 0
 
@@ -114,6 +115,7 @@ def main(inMenu,GameOver,vie,score,niveau):
         for event in pygame.event.get():
             if pygame.mouse.get_pressed()[0]:
                 inMenu = False
+                inGame = True
                 MouseD = True
             else:
                 MouseD = False
@@ -131,15 +133,16 @@ def main(inMenu,GameOver,vie,score,niveau):
             joueur.move_left(ig)
             ig += 1
         if KEYS_PRESSED[K_UP]:
-                joueur.move_jump()
+            joueur.move_jump()
+            #joueur.down_jump()
         if joueur.rect.y==0 or KEYS_PRESSED[K_UP]==False:
-            while joueur.rect.y!=100:
-                joueur.rect.y+=1
+            while joueur.rect.y<100:
+               joueur.down_jump()
            
         if KEYS_PRESSED[K_q]:
             vie -= 1
         if vie <=0:
-            GameOver = True
+            inEndMenu = True
 
         if MouseD == True:
             score = int(score) + 1
@@ -163,7 +166,7 @@ def main(inMenu,GameOver,vie,score,niveau):
 
 
         # Call draw function
-        draw(inMenu,GameOver,scoreTexte,vie,levelTexte)
+        draw(inMenu,inGame,inEndMenu,GameOver,scoreTexte,vie,levelTexte)
 
 
 
@@ -176,5 +179,5 @@ pygame.mixer.music.set_volume(3.0)
 pygame.mixer.music.play(loops=-1)
 
 if __name__ == '__main__':
-    main(inMenu,GameOver,vie,score,niveau)
+    main(inMenu,inGame,inEndMenu,GameOver,vie,score,niveau)
 pygame.quit()
