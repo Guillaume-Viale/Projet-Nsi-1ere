@@ -53,18 +53,19 @@ FPS = 60
 time = 0
 MouseD = False
 inMenu = True
+inGame = False
+inEndMenu = False
 state=False
-GameOver = False
 clock = pygame.time.Clock()
 tirs_liste = []
 
-def draw(inMenu,GameOver,scoreTexte,vie,levelTexte):
+def draw(inMenu,inGame,inEndMenu,scoreTexte,vie,levelTexte):
     # Fond
     if inMenu:
         fenetre.blit(fondMain,(0,0))
         fenetre.blit(starttext, (230,400))
         fenetre.blit(Title,(230,100))
-    if inMenu == False:
+    if inGame == True:
         fenetre.blit(fond, (0,0))
         if vie == 3:
             fenetre.blit(vie1,(-300,-150))
@@ -94,17 +95,17 @@ def draw(inMenu,GameOver,scoreTexte,vie,levelTexte):
         fenetre.blit(scoreTexte,(550,40))
         fenetre.blit(levelTexte,(550,80))
         for tir in tirs_liste:
-            fenetre.blit(vie1,(tir[0],tir[1]))
-        if GameOver == True:
-            inMenu = True
-            fenetre.blit(fondMain,(0,0))
-            fenetre.blit(gameover,(230,500))
+            fenetre.blit(vie1,(tir[0],tir[1])
             pygame.display.flip
-
+    if inEndMenu == True: 
+        fenetre.blit(fondMain,(0,0))
+        fenetre.blit(endtext, (250,350))
+        fenetre.blit(gameover,(220,100))
+   
     pygame.display.update()
 
 
-def main(inMenu,GameOver,vie,score,niveau):
+def main(inMenu,inGame,inEndMenu,vie,score,niveau):
     ir = 0
     ig = 0
 
@@ -117,6 +118,7 @@ def main(inMenu,GameOver,vie,score,niveau):
         for event in pygame.event.get():
             if pygame.mouse.get_pressed()[0]:
                 inMenu = False
+                inGame = True
                 MouseD = True
             else:
                 MouseD = False
@@ -175,7 +177,7 @@ def main(inMenu,GameOver,vie,score,niveau):
         if KEYS_PRESSED[K_q]:
             vie -= 1
         if vie <=0:
-            GameOver = True
+            inEndMenu = True
 
 
 
@@ -205,7 +207,7 @@ def main(inMenu,GameOver,vie,score,niveau):
 
 
         # Call draw function
-        draw(inMenu,GameOver,scoreTexte,vie,levelTexte)
+        draw(inMenu,inGame,inEndMenu,scoreTexte,vie,levelTexte)
 
 
 
@@ -218,5 +220,5 @@ pygame.mixer.music.set_volume(3.0)
 pygame.mixer.music.play(loops=-1)
 
 if __name__ == '__main__':
-    main(inMenu,GameOver,vie,score,niveau)
+    main(inMenu,inGame,inEndMenu,vie,score,niveau)
 pygame.quit()
