@@ -5,7 +5,8 @@ import pygame
 import math
 from pygame.locals import *
 from pygame import mixer
-
+from monstre2 import*
+from monstre3 import*
 import scripts
 
 pygame.init()
@@ -24,13 +25,17 @@ sol_terre = pygame.transform.scale(sol_terre, (675, 482))
 vie1 = pygame.image.load("ImagesHeros/Coeur_Heros.png").convert_alpha()
 vie2 = pygame.image.load("ImagesHeros/CoeurPerduHeros.png").convert_alpha()
 balle = pygame.image.load("ImagesHeros/attaque.png").convert_alpha()
+balle2 = pygame.image.load("ImagesHeros/attaque2.png").convert_alpha()
+balle_m = pygame.image.load("ImagesAttaques/wifi.png").convert_alpha()
+balle_m = pygame.transform.scale(balle_m,(50,50))
 mechant1 = pygame.image.load("ImagesEnemies/M_Antenne.png").convert_alpha()
 mechant2 = pygame.image.load("ImagesEnemies/M_Imprimante.png").convert_alpha()
 mechant3 = pygame.image.load("ImagesEnemies/M_Smartphone.png").convert_alpha()
 # mechant4=pygame.image.load("").convert_alpha()
 joueur = scripts.Player()
 ennemi = scripts.Monstre()
-
+ennemi2 = Monstre2()
+ennemi3 = Monstre3()
 # GAMEPLAY
 score = 0
 vie = 3
@@ -83,7 +88,8 @@ def draw(inMenu, inGame, inEndMenu, scoreTexte, vie, levelTexte):
             pygame.display.flip
         fenetre.blit(joueur.image, joueur.rect)
         fenetre.blit(ennemi.image, ennemi.rect)
-
+        fenetre.blit(ennemi2.image, ennemi2.rect)
+        fenetre.blit(ennemi3.image, ennemi3.rect)
         for i in range(-450, 350, 45):
             fenetre.blit(sol_herbe, (i, 125))
             fenetre.blit(sol_terre, (i + 50, 175))
@@ -91,8 +97,13 @@ def draw(inMenu, inGame, inEndMenu, scoreTexte, vie, levelTexte):
             fenetre.blit(sol_terre, (i + 50, 235))
         fenetre.blit(scoreTexte, (550, 40))
         fenetre.blit(levelTexte, (550, 80))
+        for tirs in ennemi2.ondesliste:
+            fenetre.blit(balle_m,(tirs[0],tirs[1]))
         for tir in tirs_liste:
-            fenetre.blit(vie1, (tir[0], tir[1]))
+            if tir[2]:
+                fenetre.blit(balle, (tir[0], tir[1]))
+            else:
+                fenetre.blit(balle2, (tir[0], tir[1]))
             pygame.display.flip()
     if inEndMenu == True:
         fenetre.blit(fondMain, (0, 0))
@@ -102,15 +113,15 @@ def draw(inMenu, inGame, inEndMenu, scoreTexte, vie, levelTexte):
     pygame.display.update()
 
 
-def main(inMenu, inGame, inEndMenu, vie, score, niveau):
+def main(inMenu, inGame, inEndMenu, vie, score, niveau, time):
     ir = 0
     ig = 0
 
     run = True
     while run:
         # Tick at n FPS
-        clock.tick(FPS)
-        time = clock.get_time
+        dt = clock.tick(FPS)
+        time += dt
         # Event handler
         for event in pygame.event.get():
             if pygame.mouse.get_pressed()[0]:
@@ -166,10 +177,14 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau):
             while joueur.rect.y != 100:
                 joueur.rect.y += 1
         #           desc = False
-        if joueur.rect.x > ennemi.rect.x:
-            ennemi.rect.x+=5
-        if joueur.rect.x < ennemi.rect.x:
-            ennemi.rect.x-=5 
+        if joueur.rect.x > ennemi.rect.x-220:
+            ennemi.rect.x+=2.5
+        if joueur.rect.x < ennemi.rect.x-220:
+            ennemi.rect.x-=3
+        if joueur.rect.x > ennemi3.rect.x:
+            ennemi3.rect.x+=2.5
+        if joueur.rect.x < ennemi3.rect.x:
+            ennemi3.rect.x-=3
         if KEYS_PRESSED[K_q]:
             vie -= 1
         if vie <= 0:
@@ -186,6 +201,27 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau):
 
         scoreTexte = font.render(Affscore, True, white)
         levelTexte = font.render(Afflevel, True, white)
+        
+        if time%30 == 0 and KEYS_PRESSED[K_SPACE]:
+            if joueur.sens:
+                tirs_liste.append([joueur.rect.x-4, joueur.rect.y-5, joueur.sens])
+            else:
+                tirs_liste.append([joueur.rect.x-4, joueur.rect.y-35, joueur.sens])
+        for tir in tirs_liste:
+            if tir[2]:
+                tir[0] += 15
+            else:
+                tir[0] -= 15
+            if 0>tir[0]>700:
+                tirs_liste.remove(tir)
+        
+        if time%60 == 0:
+            ennemi2.ondesliste.append([ennemi2.rect.x+160, ennemi2.rect.y+180])
+        for tir in ennemi2.ondesliste:
+            tir[0] -= 10
+            if 0>tir[0]>700:
+                ennemi2.ondesliste.remove(tir)
+        
         if KEYS_PRESSED[pygame.K_ESCAPE]:
             pygame.quit()
             run = False
@@ -203,5 +239,5 @@ pygame.mixer.music.set_volume(3.0)
 pygame.mixer.music.play(loops=-1)
 
 if __name__ == '__main__':
-    main(inMenu, inGame, inEndMenu, vie, score, niveau)
+    main(inMenu, inGame, inEndMenu, vie, score, niveau,time)
 pygame.quit()
