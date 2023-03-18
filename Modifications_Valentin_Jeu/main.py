@@ -201,8 +201,10 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2 , time3):
             ennemi3.rect.x+=2.5
         if joueur.rect.x < ennemi3.rect.x:
             ennemi3.rect.x-=3
-        if KEYS_PRESSED[K_q]:
-            vie -= 1
+        for tir in ennemi2.ondesliste:
+                
+            if tir[0] - 330 == joueur.rect.x and joueur.rect.y+25 >= tir[1] -180 >= joueur.rect.y-25 :
+                vie -= 1
         if vie <= 0:
             inEndMenu = True
 
