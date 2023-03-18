@@ -52,6 +52,7 @@ endtext = font.render('TOO BAD TRY AGAIN !', True, white)
 # PAS_CHANGER
 FPS = 60
 time = 0
+time2 = 0
 MouseD = False
 inMenu = True
 inGame = False
@@ -113,15 +114,16 @@ def draw(inMenu, inGame, inEndMenu, scoreTexte, vie, levelTexte):
     pygame.display.update()
 
 
-def main(inMenu, inGame, inEndMenu, vie, score, niveau, time):
+def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2 ):
     ir = 0
     ig = 0
 
     run = True
     while run:
         # Tick at n FPS
-        dt = clock.tick(FPS)
+        dt = clock.tick()
         time += dt
+        time2 += dt
         # Event handler
         for event in pygame.event.get():
             if pygame.mouse.get_pressed()[0]:
@@ -202,11 +204,12 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time):
         scoreTexte = font.render(Affscore, True, white)
         levelTexte = font.render(Afflevel, True, white)
         
-        if time%30 == 0 and KEYS_PRESSED[K_SPACE]:
+        if time>500 and KEYS_PRESSED[K_SPACE]:
             if joueur.sens:
                 tirs_liste.append([joueur.rect.x-4, joueur.rect.y-5, joueur.sens])
             else:
                 tirs_liste.append([joueur.rect.x-4, joueur.rect.y-35, joueur.sens])
+            time = 0
         for tir in tirs_liste:
             if tir[2]:
                 tir[0] += 15
@@ -215,8 +218,9 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time):
             if 0>tir[0]>700:
                 tirs_liste.remove(tir)
         
-        if time%60 == 0:
+        if time2 > 1000:
             ennemi2.ondesliste.append([ennemi2.rect.x+160, ennemi2.rect.y+180])
+            time2 = 0
         for tir in ennemi2.ondesliste:
             tir[0] -= 10
             if 0>tir[0]>700:
@@ -226,7 +230,7 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time):
             pygame.quit()
             run = False
 
-        # Tir
+        
 
         # Call draw function
         draw(inMenu, inGame, inEndMenu, scoreTexte, vie, levelTexte)
@@ -239,5 +243,5 @@ pygame.mixer.music.set_volume(3.0)
 pygame.mixer.music.play(loops=-1)
 
 if __name__ == '__main__':
-    main(inMenu, inGame, inEndMenu, vie, score, niveau,time)
+    main(inMenu, inGame, inEndMenu, vie, score, niveau,time, time2)
 pygame.quit()
