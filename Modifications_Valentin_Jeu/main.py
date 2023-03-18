@@ -212,17 +212,17 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2 ):
             time = 0
         for tir in tirs_liste:
             if tir[2]:
-                tir[0] += 15
+                tir[0] += 20
             else:
-                tir[0] -= 15
+                tir[0] -= 20
             if 0>tir[0]>700:
                 tirs_liste.remove(tir)
         
-        if time2 > 1000:
+        if time2 > 2000:
             ennemi2.ondesliste.append([ennemi2.rect.x+160, ennemi2.rect.y+180])
             time2 = 0
         for tir in ennemi2.ondesliste:
-            tir[0] -= 10
+            tir[0] -= 5
             if 0>tir[0]>700:
                 ennemi2.ondesliste.remove(tir)
         
