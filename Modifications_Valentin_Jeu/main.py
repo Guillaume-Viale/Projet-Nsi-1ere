@@ -50,9 +50,10 @@ starttext = font.render('CLICK TO START', True, white)
 gameover = font.render('GAME OVER', True, white)
 endtext = font.render('TOO BAD TRY AGAIN !', True, white)
 # PAS_CHANGER
-FPS = 60
+
 time = 0
 time2 = 0
+time3 = 0
 MouseD = False
 inMenu = True
 inGame = False
@@ -114,7 +115,7 @@ def draw(inMenu, inGame, inEndMenu, scoreTexte, vie, levelTexte):
     pygame.display.update()
 
 
-def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2 ):
+def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2 , time3):
     ir = 0
     ig = 0
 
@@ -124,6 +125,7 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2 ):
         dt = clock.tick()
         time += dt
         time2 += dt
+        time3 += dt
         # Event handler
         for event in pygame.event.get():
             if pygame.mouse.get_pressed()[0]:
@@ -175,9 +177,21 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2 ):
                 joueur.move_jump(90.0)
         #       if KEYS_PRESSED[K_UP]:
         #               joueur.move_jump_init()
-        if joueur.rect.y == 0 or KEYS_PRESSED[K_UP] == False:
-            while joueur.rect.y != 100:
-                joueur.rect.y += 1
+        if not(joueur.isJump):
+            if KEYS_PRESSED[K_UP]:
+                joueur.isJump = True
+        else:
+            if joueur.jumpcount >= -10:
+                joueur.rect.y -= (joueur.jumpcount * abs(joueur.jumpcount)) * 0.25
+                joueur.jumpcount -= 1
+            else:
+                joueur.jumpcount = 10
+                joueur.isJump = False
+                
+        
+        #if joueur.rect.y == 0 or KEYS_PRESSED[K_UP] == False:
+            #while joueur.rect.y != 100:
+                #joueur.rect.y += 1
         #           desc = False
         if joueur.rect.x > ennemi.rect.x-220:
             ennemi.rect.x+=2.5
@@ -227,7 +241,7 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2 ):
                 ennemi2.ondesliste.remove(tir)
         
         if KEYS_PRESSED[pygame.K_ESCAPE]:
-            pygame.quit()
+            
             run = False
 
         
@@ -243,5 +257,5 @@ pygame.mixer.music.set_volume(3.0)
 pygame.mixer.music.play(loops=-1)
 
 if __name__ == '__main__':
-    main(inMenu, inGame, inEndMenu, vie, score, niveau,time, time2)
+    main(inMenu, inGame, inEndMenu, vie, score, niveau,time, time2,time3)
 pygame.quit()
