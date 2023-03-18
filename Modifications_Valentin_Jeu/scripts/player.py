@@ -1,6 +1,6 @@
 import pygame
 import math
-from scripts.attaquesDistance import *
+#from scripts.attaquesDistance import *
 
 class Player(pygame.sprite.Sprite):
     def __init__(self):
@@ -19,6 +19,8 @@ class Player(pygame.sprite.Sprite):
         self.rect.x = 0
         self.rect.y = 100
         self.sens=True
+        self.isJump = False
+        self.jumpcount = 10
 
     #i peut être un entier quelconque
     def move_right(self,i):
@@ -58,7 +60,7 @@ class Player(pygame.sprite.Sprite):
             else:
                 self.image = pygame.image.load("ImagesHeros/Mulet_G3.png")
  #       while self.rect.y <= 0:
-        self.rect.y -= self.jump_velocity
+        #self.rect.y -= self.jump_velocity
  #       while self.rect.y <= 100:
  #           self.rect.y += self.jump_velocity
 
@@ -77,9 +79,9 @@ class Player(pygame.sprite.Sprite):
 
 
 
-    def launch_projectile(self):
+    #def launch_projectile(self):
         #creer nouvelle instance de la classe projectile
-        self.all_projectiles.add(Projectile())
+        #self.all_projectiles.add(Projectile())
 
 
 
