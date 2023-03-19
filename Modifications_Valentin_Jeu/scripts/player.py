@@ -8,7 +8,7 @@ class Player(pygame.sprite.Sprite):
         self.health = 100
         self.max_health = 100
         self.attack = 10
-        self.velocity = 5
+        self.velocity = 6
         self.jump_velocity = 10 # La vitesse de saut
         self.jump_time = 0 
         self.angle = 0.0
@@ -82,6 +82,4 @@ class Player(pygame.sprite.Sprite):
     #def launch_projectile(self):
         #creer nouvelle instance de la classe projectile
         #self.all_projectiles.add(Projectile())
-
-
 
