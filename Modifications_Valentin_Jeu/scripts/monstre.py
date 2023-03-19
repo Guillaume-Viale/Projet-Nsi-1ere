@@ -10,10 +10,12 @@ class Monstre(pygame.sprite.Sprite):
         self.max_health = 100
         self.attack  = 5
         self.listemonstre=["ImagesEnemies/M_Antenne.png","ImagesEnemies/M_Imprimante.png","ImagesEnemies/M_Smartphone.png"]
-        self.image = pygame.image.load(choice(self.listemonstre))
+        self.image = pygame.image.load("ImagesEnemies/M_Imprimante.png")
+        self.image = pygame.transform.scale(self.image,(400,350))
         self.rect = self.image.get_rect()
         self.rect.x = randint(-200,200)
-        self.rect.y = 100
+        self.rect.y = 200
+
 
   
         
