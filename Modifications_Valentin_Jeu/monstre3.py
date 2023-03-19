@@ -12,7 +12,9 @@ class Monstre3(pygame.sprite.Sprite):
         self.ondesliste = []
         self.listemonstre=["ImagesEnemies/M_Antenne.png","ImagesEnemies/M_Imprimante.png","ImagesEnemies/M_Smartphone.png"]
         self.image = pygame.image.load("ImagesEnemies/M_Smartphone.png")
+        self.image = pygame.transform.scale(self.image,(490,350))
         self.rect = self.image.get_rect()
         self.rect.x = 400
         self.rect.y = -115
+        
         
