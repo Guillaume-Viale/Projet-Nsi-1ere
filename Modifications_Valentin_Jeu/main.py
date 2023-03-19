@@ -182,7 +182,7 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2 , time3):
                 joueur.isJump = True
         else:
             if joueur.jumpcount >= -10:
-                joueur.rect.y -= (joueur.jumpcount * abs(joueur.jumpcount)) * 0.25
+                joueur.rect.y -= (joueur.jumpcount * abs(joueur.jumpcount)) * 0.3
                 joueur.jumpcount -= 1
             else:
                 joueur.jumpcount = 10
@@ -194,17 +194,19 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2 , time3):
                 #joueur.rect.y += 1
         #           desc = False
         if joueur.rect.x > ennemi.rect.x-220:
-            ennemi.rect.x+=2.5
+            ennemi.rect.x+=2
         if joueur.rect.x < ennemi.rect.x-220:
-            ennemi.rect.x-=3
+            ennemi.rect.x-=2.5
         if joueur.rect.x > ennemi3.rect.x:
-            ennemi3.rect.x+=2.5
+            ennemi3.rect.x+=2
         if joueur.rect.x < ennemi3.rect.x:
-            ennemi3.rect.x-=3
+            ennemi3.rect.x-=2.5
         for tir in ennemi2.ondesliste:
                 
-            if tir[0] - 330 == joueur.rect.x and joueur.rect.y+25 >= tir[1] -180 >= joueur.rect.y-25 :
+            if joueur.rect.x+5>=tir[0] - 330 >=joueur.rect.x-4 and joueur.rect.y+50 >= tir[1] -180 >= joueur.rect.y-50 :
                 vie -= 1
+        if joueur.rect.x+20 >= ennemi.rect.x >= joueur.rect.x - 20 and joueur.rect.y == ennemi.rect.y - 100:
+            vie -= 1
         if vie <= 0:
             inEndMenu = True
 
@@ -235,10 +237,10 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2 , time3):
                 tirs_liste.remove(tir)
         
         if time2 > 2000:
-            ennemi2.ondesliste.append([ennemi2.rect.x+160, ennemi2.rect.y+180])
+            ennemi2.ondesliste.append([ennemi2.rect.x+115, ennemi2.rect.y+120])
             time2 = 0
         for tir in ennemi2.ondesliste:
-            tir[0] -= 5
+            tir[0] -= 6
             if 0>tir[0]>700:
                 ennemi2.ondesliste.remove(tir)
         
