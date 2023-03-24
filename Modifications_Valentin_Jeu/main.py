@@ -158,11 +158,11 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2 , time3):
 
        
         #Mouvement a droite
-        if KEYS_PRESSED[K_RIGHT]:
+        if KEYS_PRESSED[K_RIGHT] and joueur.rect.x<=315:
             joueur.move_right(ir)
             ir += 1
         #Mouvement a Gauche
-        if KEYS_PRESSED[K_LEFT]:
+        if KEYS_PRESSED[K_LEFT] and -315<=joueur.rect.x:
             joueur.move_left(ig)
             ig += 1
 
@@ -203,13 +203,19 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2 , time3):
                 
             if joueur.rect.x+5>=tir[0] - 330 >=joueur.rect.x-4 and joueur.rect.y+50 >= tir[1] -180 >= joueur.rect.y-50 :
                 vie -= 1
+        
         #GameOver
         if vie <= 0:
             inEndMenu = True
         #systeme de score(a changer)
         if MouseD == True:
             score = int(score) + 1
-
+        if ennemi.isDead == True:
+            score = int(score) + 1
+        if ennemi2.isDead == True:
+            score = int(score) + 1
+        if ennemi3.isDead == True:
+            score = int(score) + 1
         #ecrit le score et le niveau
         Affscore = 'score '
         Affscore += str(score)
@@ -242,7 +248,21 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2 , time3):
             tir[0] -= 6
             if 0>tir[0]>700:
                 ennemi2.ondesliste.remove(tir)
-        
+        if ennemi.health <= 0:
+            ennemi.isDead = True
+        if ennemi2.health <= 0:
+            ennemi2.isDead = True
+        if ennemi3.health <= 0:
+            ennemi3.isDead = True
+       
+        if ennemi.isDead and ennemi2.isDead and ennemi3.isDead:
+            niveau = niveau + 1
+            ennemi.isDead = False
+            ennemi.health = ennemi.max_health
+            ennemi2.isDead = False
+            ennemi2.health = ennemi2.max_health
+            ennemi3.isDead = False
+            ennemi3.health = ennemi3.max_health
         if KEYS_PRESSED[pygame.K_ESCAPE]:
             
             run = False
