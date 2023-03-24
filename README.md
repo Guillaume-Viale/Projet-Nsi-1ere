@@ -17,9 +17,8 @@ Documentation(pygame):https://www.pygame.org/docs/
 
 Lien d'invitation Trello: https://trello.com/invite/nsiprojet1ereretroadventure/ATTI6d4894ac3f7726a7e4e206ddf816d3461021852B
 
-Lien vers la bande-son du jeu: https://drive.google.com/file/d/1GizMf30ylk2viueBFmC_0wYmMbdHe6f8/view?usp=share_link
  
-nom du programme python: RETR.py
+nom du programme python: main.py
 brouillon: BROUILLON.md
 NOM DU PROJET: RETRO ADVENTURE
 
@@ -32,12 +31,11 @@ CAHIER DES CHARGES:
      - Flèche gauche = gauche
      - Flèche haut = sauter
      - Espace = tirer
-     - Clic droit souris = tirer 
 - Graphisme: 2D + vue de côté 
 - 3 Vagues de monstres à éliminer
 - 3 vies representées chacune par des coeurs
 - Plus les anneés avancent, les monstres change afin de représenter l'évolution de la technologie
-- Présence de PNJ: Ils attaquent le personnge principal(ce sont les ennemis) et disparaissent si le personnage les esquive ou les détruit
+- Présence de PNJ: Ils attaquent le personnge principal(ce sont les ennemis) et disparaissent si le personnage les détruit
 - Présence de musique: Oui
 - Système de projectiles: oui, le personnage aura un pistolet à eau afin de détruire les différentes machines. Puis les projectiles dependent des niveaux
 - Jeu/inspiration: Super Mario Bros (Première version)
