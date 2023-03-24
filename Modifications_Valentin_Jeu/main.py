@@ -16,8 +16,10 @@ boucle = 1
 
 # IMAGE
 fond = pygame.image.load("ImagesFond/CielFinal_20.png").convert()
+#image de fond
 fond = pygame.transform.scale(fond, (700, 500))
 fondMain = pygame.image.load("ImagesFond/Accueil.png").convert()
+#fond Menu principale
 fondMain = pygame.transform.scale(fondMain, (700, 500))
 sol_herbe = pygame.image.load("ImagesFond/pixil-frameHerbe.png").convert_alpha()
 sol_terre = pygame.image.load("ImagesFond/TerreFinal700500.png").convert_alpha()
@@ -64,12 +66,13 @@ tirs_liste = []
 
 
 def draw(inMenu, inGame, inEndMenu, scoreTexte, vie, levelTexte):
-    # Fond
+    # Menu Principale
     if inMenu:
         fenetre.blit(fondMain, (0, 0))
         fenetre.blit(starttext, (230, 400))
         fenetre.blit(Title, (230, 100))
     if inGame == True:
+        #le jeu commence
         fenetre.blit(fond, (0, 0))
         if vie == 3:
             fenetre.blit(vie1, (-300, -150))
@@ -87,7 +90,7 @@ def draw(inMenu, inGame, inEndMenu, scoreTexte, vie, levelTexte):
                     fenetre.blit(vie1, (-300, -150))
                     fenetre.blit(vie2, (-250, -150))
                     fenetre.blit(vie2, (-200, -150))
-            pygame.display.flip
+        #tout les elemnts du jeu(sol,perso,ennemis...)   
         fenetre.blit(joueur.image, joueur.rect)
         fenetre.blit(ennemi.image, ennemi.rect)
         fenetre.blit(ennemi2.image, ennemi2.rect)
@@ -99,6 +102,7 @@ def draw(inMenu, inGame, inEndMenu, scoreTexte, vie, levelTexte):
             fenetre.blit(sol_terre, (i + 50, 235))
         fenetre.blit(scoreTexte, (550, 40))
         fenetre.blit(levelTexte, (550, 80))
+        #rendement graphique des tirs
         for tirs in ennemi2.ondesliste:
             fenetre.blit(balle_m,(tirs[0],tirs[1]))
         for tir in tirs_liste:
@@ -107,6 +111,7 @@ def draw(inMenu, inGame, inEndMenu, scoreTexte, vie, levelTexte):
             else:
                 fenetre.blit(balle2, (tir[0], tir[1]))
             pygame.display.flip()
+    #GameOver
     if inEndMenu == True:
         fenetre.blit(fondMain, (0, 0))
         fenetre.blit(endtext, (250, 350))
@@ -121,7 +126,7 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2 , time3):
 
     run = True
     while run:
-        # Tick at n FPS
+        # necessaire pour le systeme de timer
         dt = clock.tick()
         time += dt
         time2 += dt
@@ -135,6 +140,7 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2 , time3):
             else:
                 MouseD = False
 
+            #regarde si le perso saute et si il va vers la gauche ou droite(Images)
             if event.type == KEYUP:
                 if event.key == K_RIGHT:
                     joueur.image = pygame.image.load("ImagesHeros/Mulet_1.png")
@@ -150,24 +156,18 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2 , time3):
 
         KEYS_PRESSED = pygame.key.get_pressed()
 
-        #       if KEYS_PRESSED[K_RIGHT] and KEYS_PRESSED[K_UP] == False:
-        #           joueur.move_right(ir)
-        #           ir += 1
-
-        #       if KEYS_PRESSED[K_LEFT] and KEYS_PRESSED[K_UP] == False:
-        #           joueur.move_left(ig)
-        #           ig += 1
-
+       
+        #Mouvement a droite
         if KEYS_PRESSED[K_RIGHT]:
             joueur.move_right(ir)
             ir += 1
-
+        #Mouvement a Gauche
         if KEYS_PRESSED[K_LEFT]:
             joueur.move_left(ig)
             ig += 1
 
-        #       if event.type == KEYDOWN:
-
+        
+        #donne l'image correspondante lorsque le perso saute
         if KEYS_PRESSED[K_UP]:
             if KEYS_PRESSED[K_LEFT]:
                 joueur.move_jump(135.0)
@@ -175,11 +175,11 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2 , time3):
                 joueur.move_jump(45.0)
             else:
                 joueur.move_jump(90.0)
-        #       if KEYS_PRESSED[K_UP]:
-        #               joueur.move_jump_init()
+        #regarde si le perso est sur le sol
         if not(joueur.isJump):
             if KEYS_PRESSED[K_UP]:
                 joueur.isJump = True
+        #methode de saut --> parabole a l'aide d'une fonction polynome
         else:
             if joueur.jumpcount >= -10:
                 joueur.rect.y -= (joueur.jumpcount * abs(joueur.jumpcount)) * 0.3
@@ -189,10 +189,7 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2 , time3):
                 joueur.isJump = False
                 
         
-        #if joueur.rect.y == 0 or KEYS_PRESSED[K_UP] == False:
-            #while joueur.rect.y != 100:
-                #joueur.rect.y += 1
-        #           desc = False
+        #les ennemies 1 et 3 suivent le perso
         if joueur.rect.x > ennemi.rect.x-220:
             ennemi.rect.x+=2
         if joueur.rect.x < ennemi.rect.x-220:
@@ -201,18 +198,19 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2 , time3):
             ennemi3.rect.x+=2
         if joueur.rect.x < ennemi3.rect.x:
             ennemi3.rect.x-=2.5
+        #systeme de dégat de tir pour l'ennemi n2
         for tir in ennemi2.ondesliste:
                 
             if joueur.rect.x+5>=tir[0] - 330 >=joueur.rect.x-4 and joueur.rect.y+50 >= tir[1] -180 >= joueur.rect.y-50 :
                 vie -= 1
-        if joueur.rect.x+20 >= ennemi.rect.x >= joueur.rect.x - 20 and joueur.rect.y == ennemi.rect.y - 100:
-            vie -= 1
+        #GameOver
         if vie <= 0:
             inEndMenu = True
-
+        #systeme de score(a changer)
         if MouseD == True:
             score = int(score) + 1
 
+        #ecrit le score et le niveau
         Affscore = 'score '
         Affscore += str(score)
 
@@ -222,6 +220,7 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2 , time3):
         scoreTexte = font.render(Affscore, True, white)
         levelTexte = font.render(Afflevel, True, white)
         
+        #systeme de tir du perso, 2fois par seconde
         if time>500 and KEYS_PRESSED[K_SPACE]:
             if joueur.sens:
                 tirs_liste.append([joueur.rect.x-4, joueur.rect.y-5, joueur.sens])
@@ -235,7 +234,7 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2 , time3):
                 tir[0] -= 20
             if 0>tir[0]>700:
                 tirs_liste.remove(tir)
-        
+        #systeme de tir pour le mechant 2
         if time2 > 2000:
             ennemi2.ondesliste.append([ennemi2.rect.x+115, ennemi2.rect.y+120])
             time2 = 0
