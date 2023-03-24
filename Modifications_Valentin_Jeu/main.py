@@ -203,7 +203,14 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2 , time3):
                 
             if joueur.rect.x+5>=tir[0] - 330 >=joueur.rect.x-4 and joueur.rect.y+50 >= tir[1] -180 >= joueur.rect.y-50 :
                 vie -= 1
-        
+        for tir in tirs_liste:
+                
+            if ennemi2.rect.x+5>=tir[0] + 115 >=ennemi2.rect.x-4 and ennemi2.rect.y+50 >= tir[1] +60 >= ennemi2.rect.y-50 :
+                ennemi2.health -=50
+            if ennemi.rect.x+5>=tir[0] + 216 >=ennemi.rect.x-4 and ennemi.rect.y+50 >= tir[1] +45 >= ennemi.rect.y-50 :
+                ennemi.health -=25
+            if ennemi3.rect.x+5>=tir[0] + 115 >=ennemi3.rect.x-4 and ennemi3.rect.y+50 >= tir[1] +60 >= ennemi3.rect.y-50 :
+                ennemi3.health -=34
         #GameOver
         if vie <= 0:
             inEndMenu = True
@@ -212,6 +219,7 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2 , time3):
             score = int(score) + 1
         if ennemi.isDead == True:
             score = int(score) + 1
+
         if ennemi2.isDead == True:
             score = int(score) + 1
         if ennemi3.isDead == True:
