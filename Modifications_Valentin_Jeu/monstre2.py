@@ -16,6 +16,6 @@ class Monstre2(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(self.image,(490,350))
         self.rect.x = 450
         self.rect.y = 190
-        self.isDead= false
+        self.isDead= False
         self.timer = pygame.time.get_ticks()
         
