@@ -8,7 +8,7 @@ class Monstre3(pygame.sprite.Sprite):
         super().__init__()
         self.health = 100
         self.max_health = 100
-        self.attack  = 5
+        self.attack  = False
         self.ondesliste = []
         self.listemonstre=["ImagesEnemies/M_Antenne.png","ImagesEnemies/M_Imprimante.png","ImagesEnemies/M_Smartphone.png"]
         self.image = pygame.image.load("ImagesEnemies/M_Smartphone.png")
