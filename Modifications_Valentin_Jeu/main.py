@@ -193,11 +193,31 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2 , time3):
         if joueur.rect.x > ennemi.rect.x-220:
             ennemi.rect.x+=2
         if joueur.rect.x < ennemi.rect.x-220:
-            ennemi.rect.x-=2.5
-        if joueur.rect.x > ennemi3.rect.x:
-            ennemi3.rect.x+=2
-        if joueur.rect.x < ennemi3.rect.x:
-            ennemi3.rect.x-=2.5
+            ennemi.rect.x-=2
+        if joueur.rect.x > ennemi3.rect.x-120 and ennemi3.attack == False:
+            ennemi3.rect.x+=4
+        if joueur.rect.x < ennemi3.rect.x-120 and ennemi3.attack == False:
+            ennemi3.rect.x-=4
+        
+        if joueur.rect.x != ennemi3.rect.x-120 and ennemi3.attack == False:
+            time3 = 0
+            
+        if ennemi3.rect.x-123 <= joueur.rect.x <=ennemi3.rect.x-117 and time3>1500:
+            ennemi3.attack = True
+        if ennemi3.attack == True:
+            if ennemi3.rect.y <= 140:
+                ennemi3.rect.y+=14
+            if ennemi3.rect.y >= 140 and time3>3000:
+                ennemi3.rect.y = -115
+                time3 = 0
+                ennemi3.attack = False
+
+            
+            
+            
+            
+                
+                
         #systeme de dégat de tir pour l'ennemi n2
         for tir in ennemi2.ondesliste:
                 
@@ -205,7 +225,7 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2 , time3):
                 vie -= 1
         for tir in tirs_liste:
                 
-            if ennemi2.rect.x+5>=tir[0] + 115 >=ennemi2.rect.x-4 and ennemi2.rect.y+50 >= tir[1] +60 >= ennemi2.rect.y-50 :
+            if ennemi2.rect.x+5>=tir[0] + 115 >=ennemi2.rect.x-5 and ennemi2.rect.y+50 >= tir[1] +60 >= ennemi2.rect.y-60 :
                 ennemi2.health -=50
             if ennemi.rect.x+5>=tir[0] + 216 >=ennemi.rect.x-4 and ennemi.rect.y+50 >= tir[1] +45 >= ennemi.rect.y-50 :
                 ennemi.health -=25
@@ -249,7 +269,7 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2 , time3):
             if 0>tir[0]>700:
                 tirs_liste.remove(tir)
         #systeme de tir pour le mechant 2
-        if time2 > 2000:
+        if time2 > 2000 and ennemi2.isDead == False:
             ennemi2.ondesliste.append([ennemi2.rect.x+115, ennemi2.rect.y+120])
             time2 = 0
         for tir in ennemi2.ondesliste:
