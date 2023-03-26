@@ -15,7 +15,7 @@ class Monstre(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = randint(-200,200)
         self.rect.y = 200
-        self.isDead = false
+        self.isDead = False
 
 
   
