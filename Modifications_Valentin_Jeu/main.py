@@ -179,6 +179,8 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2 , time3):
         if not(joueur.isJump):
             if KEYS_PRESSED[K_UP]:
                 joueur.isJump = True
+                son2 = pygame.mixer.Sound("sons/Modifications_Valentin_Jeu_jump.wav")
+                son2.play()
         #methode de saut --> parabole a l'aide d'une fonction polynome
         else:
             if joueur.jumpcount >= -10:
@@ -261,6 +263,8 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2 , time3):
             else:
                 tirs_liste.append([joueur.rect.x-4, joueur.rect.y-35, joueur.sens])
             time = 0
+            son = pygame.mixer.Sound("sons/Modifications_Valentin_Jeu_laserShoot.wav")
+            son.play()
         for tir in tirs_liste:
             if tir[2]:
                 tir[0] += 20
