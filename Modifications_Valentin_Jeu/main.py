@@ -16,8 +16,12 @@ boucle = 1
 
 # IMAGE
 fond = pygame.image.load("ImagesFond/CielFinal_20.png").convert()
+fond1 = pygame.image.load("ImagesFond/VilleBleu.jpg").convert()
+fond2 = pygame.image.load("ImagesFond/VilleOrange.png").convert()
 #image de fond
 fond = pygame.transform.scale(fond, (700, 500))
+fond1 = pygame.transform.scale(fond1, (700, 370))
+fond2 = pygame.transform.scale(fond2, (700, 370))
 fondMain = pygame.image.load("ImagesFond/Accueil.png").convert()
 #fond Menu principale
 fondMain = pygame.transform.scale(fondMain, (700, 500))
@@ -65,7 +69,7 @@ clock = pygame.time.Clock()
 tirs_liste = []
 
 
-def draw(inMenu, inGame, inEndMenu, scoreTexte, vie, levelTexte):
+def draw(inMenu, inGame, inEndMenu, scoreTexte, vie, levelTexte,niveau):
     # Menu Principale
     if inMenu:
         fenetre.blit(fondMain, (0, 0))
@@ -73,7 +77,12 @@ def draw(inMenu, inGame, inEndMenu, scoreTexte, vie, levelTexte):
         fenetre.blit(Title, (230, 100))
     if inGame == True:
         #le jeu commence
-        fenetre.blit(fond, (0, 0))
+        if niveau%2 == 0:    
+            fenetre.blit(fond1, (0, 0))
+        elif niveau%3 == 0:
+            fenetre.blit(fond2, (0, 0))
+        else:
+            fenetre.blit(fond, (0, 0))
         if vie == 3:
             fenetre.blit(vie1, (-300, -150))
             fenetre.blit(vie1, (-250, -150))
@@ -295,6 +304,8 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2 , time3):
             ennemi2.health = ennemi2.max_health
             ennemi3.isDead = False
             ennemi3.health = ennemi3.max_health
+        if KEYS_PRESSED[K_l]:
+            niveau = niveau+1
         if KEYS_PRESSED[pygame.K_ESCAPE]:
             
             run = False
@@ -302,7 +313,7 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2 , time3):
         
 
         # Call draw function
-        draw(inMenu, inGame, inEndMenu, scoreTexte, vie, levelTexte)
+        draw(inMenu, inGame, inEndMenu, scoreTexte, vie, levelTexte,niveau)
 
 
 # Class sound:  
