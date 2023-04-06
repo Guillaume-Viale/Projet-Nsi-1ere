@@ -302,10 +302,22 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2, time3):
 
         if ennemi.isDead == True:
             score += 10
+            ennemi.rect.x = 800
+            ennemi.rect.y = 600
+            fenetre.blit(ennemi.image, ennemi.rect)
+            fenetre.display.flip
         if ennemi2.isDead == True:
             score += 15
+            ennemi2.rect.x = 800
+            ennemi2.rect.y = 600
+            fenetre.blit(ennemi2.image, ennemi2.rect)
+            fenetre.display.flip
         if ennemi3.isDead == True:
             score += 20
+            ennemi3.rect.x = 800
+            ennemi3.rect.y = 600
+            fenetre.blit(ennemi3.image, ennemi3.rect)
+            fenetre.display.flip
         if KEYS_PRESSED[K_l]:
             niveau = niveau + 1
         if KEYS_PRESSED[pygame.K_ESCAPE]:
