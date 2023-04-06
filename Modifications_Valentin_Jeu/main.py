@@ -79,8 +79,10 @@ def draw(inMenu, inGame, inEndMenu, scoreTexte, vie, levelTexte, niveau):
         # le jeu commence
         if niveau % 2 == 0:
             fenetre.blit(fond1, (0, 0))
+            #fenetre.blit(ennemi2.image, ennemi2.rect)
         elif niveau % 3 == 0:
             fenetre.blit(fond2, (0, 0))
+            #fenetre.blit(ennemi3.image, ennemi3.rect)
         else:
             fenetre.blit(fond, (0, 0))
         if vie == 3:
@@ -302,22 +304,13 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2, time3):
 
         if ennemi.isDead == True:
             score += 10
-            ennemi.rect.x = 800
-            ennemi.rect.y = 600
-            fenetre.blit(ennemi.image, ennemi.rect)
-            fenetre.display.flip
+            ennemi.rect.y += 600
         if ennemi2.isDead == True:
             score += 15
-            ennemi2.rect.x = 800
-            ennemi2.rect.y = 600
-            fenetre.blit(ennemi2.image, ennemi2.rect)
-            fenetre.display.flip
+            ennemi2.rect.y += 600
         if ennemi3.isDead == True:
             score += 20
-            ennemi3.rect.x = 800
-            ennemi3.rect.y = 600
-            fenetre.blit(ennemi3.image, ennemi3.rect)
-            fenetre.display.flip
+            ennemi3.rect.y += 600
         if KEYS_PRESSED[K_l]:
             niveau = niveau + 1
         if KEYS_PRESSED[pygame.K_ESCAPE]:
