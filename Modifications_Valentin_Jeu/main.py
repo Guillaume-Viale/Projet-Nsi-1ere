@@ -16,7 +16,7 @@ boucle = 1
 
 # IMAGE
 fond = pygame.image.load("ImagesFond/CielFinal_20.png").convert()
-fond1 = pygame.image.load("ImagesFond/VilleBleu.jpeg").convert()
+fond1 = pygame.image.load("ImagesFond/VilleBleu.jpg").convert()
 fond2 = pygame.image.load("ImagesFond/VilleOrange.png").convert()
 # image de fond
 fond = pygame.transform.scale(fond, (700, 500))
@@ -28,10 +28,12 @@ fondMain = pygame.transform.scale(fondMain, (700, 500))
 sol_herbe = pygame.image.load("ImagesFond/pixil-frameHerbe.png").convert_alpha()
 sol_terre = pygame.image.load("ImagesFond/TerreFinal700500.png").convert_alpha()
 sol_terre = pygame.transform.scale(sol_terre, (675, 482))
+sol2 = pygame.image.load("ImagesFond/Pierre.png").convert_alpha()
+sol2 = pygame.transform.scale(sol_terre, (675, 482))
 vie1 = pygame.image.load("ImagesHeros/Coeur_Heros.png").convert_alpha()
 vie2 = pygame.image.load("ImagesHeros/CoeurPerduHeros.png").convert_alpha()
 balle = pygame.image.load("ImagesHeros/attaque.png").convert_alpha()
-balle2 = pygame.image.load("ImagesAttaques/attaque2.png").convert_alpha()
+balle2 = pygame.image.load("ImagesHeros/attaque2.png").convert_alpha()
 balle_m = pygame.image.load("ImagesAttaques/wifi.png").convert_alpha()
 balle_m = pygame.transform.scale(balle_m, (50, 50))
 mechant1 = pygame.image.load("ImagesEnemies/M_Antenne.png").convert_alpha()
@@ -329,3 +331,4 @@ pygame.mixer.music.play(loops=-1)
 if __name__ == '__main__':
     main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2, time3)
 pygame.quit()
+
