@@ -16,7 +16,7 @@ boucle = 1
 
 # IMAGE
 fond = pygame.image.load("ImagesFond/CielFinal_20.png").convert()
-fond1 = pygame.image.load("ImagesFond/VilleBleu.jpg").convert()
+fond1 = pygame.image.load("ImagesFond/VilleBleu.jpeg").convert()
 fond2 = pygame.image.load("ImagesFond/VilleOrange.png").convert()
 # image de fond
 fond = pygame.transform.scale(fond, (700, 500))
@@ -33,7 +33,7 @@ sol2 = pygame.transform.scale(sol_terre, (675, 482))
 vie1 = pygame.image.load("ImagesHeros/Coeur_Heros.png").convert_alpha()
 vie2 = pygame.image.load("ImagesHeros/CoeurPerduHeros.png").convert_alpha()
 balle = pygame.image.load("ImagesHeros/attaque.png").convert_alpha()
-balle2 = pygame.image.load("ImagesHeros/attaque2.png").convert_alpha()
+balle2 = pygame.image.load("ImagesAttaques/attaque2.png").convert_alpha()
 balle_m = pygame.image.load("ImagesAttaques/wifi.png").convert_alpha()
 balle_m = pygame.transform.scale(balle_m, (50, 50))
 mechant1 = pygame.image.load("ImagesEnemies/M_Antenne.png").convert_alpha()
@@ -81,12 +81,13 @@ def draw(inMenu, inGame, inEndMenu, scoreTexte, vie, levelTexte, niveau):
         # le jeu commence
         if niveau % 2 == 0:
             fenetre.blit(fond1, (0, 0))
-            #fenetre.blit(ennemi2.image, ennemi2.rect)
+            fenetre.blit(ennemi2.image, ennemi2.rect)
         elif niveau % 3 == 0:
             fenetre.blit(fond2, (0, 0))
-            #fenetre.blit(ennemi3.image, ennemi3.rect)
+            fenetre.blit(ennemi3.image, ennemi3.rect)
         else:
             fenetre.blit(fond, (0, 0))
+            fenetre.blit(ennemi.image, ennemi.rect)
         if vie == 3:
             fenetre.blit(vie1, (-300, -150))
             fenetre.blit(vie1, (-250, -150))
@@ -105,9 +106,9 @@ def draw(inMenu, inGame, inEndMenu, scoreTexte, vie, levelTexte, niveau):
                     fenetre.blit(vie2, (-200, -150))
         # tout les elemnts du jeu(sol,perso,ennemis...)
         fenetre.blit(joueur.image, joueur.rect)
-        fenetre.blit(ennemi.image, ennemi.rect)
-        fenetre.blit(ennemi2.image, ennemi2.rect)
-        fenetre.blit(ennemi3.image, ennemi3.rect)
+        #fenetre.blit(ennemi.image, ennemi.rect)
+        #fenetre.blit(ennemi2.image, ennemi2.rect)
+        #fenetre.blit(ennemi3.image, ennemi3.rect)
         for i in range(-450, 350, 45):
             fenetre.blit(sol_herbe, (i, 125))
             fenetre.blit(sol_terre, (i + 50, 175))
@@ -116,8 +117,9 @@ def draw(inMenu, inGame, inEndMenu, scoreTexte, vie, levelTexte, niveau):
         fenetre.blit(scoreTexte, (550, 40))
         fenetre.blit(levelTexte, (550, 80))
         # rendement graphique des tirs
-        for tirs in ennemi2.ondesliste:
-            fenetre.blit(balle_m, (tirs[0], tirs[1]))
+        if niveau % 2 == 0:
+            for tirs in ennemi2.ondesliste:
+                fenetre.blit(balle_m, (tirs[0], tirs[1]))
         for tir in tirs_liste:
             if tir[2]:
                 fenetre.blit(balle, (tir[0], tir[1]))
@@ -206,11 +208,12 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2, time3):
             ennemi.rect.x += 2
         if joueur.rect.x < ennemi.rect.x - 220:
             ennemi.rect.x -= 2
+        #if joueur.rect.x == ennemi.rect.x - 220:
+            #vie = -1
         if joueur.rect.x > ennemi3.rect.x - 120 and ennemi3.attack == False:
             ennemi3.rect.x += 4
         if joueur.rect.x < ennemi3.rect.x - 120 and ennemi3.attack == False:
             ennemi3.rect.x -= 4
-
         if joueur.rect.x != ennemi3.rect.x - 120 and ennemi3.attack == False:
             time3 = 0
 
@@ -225,22 +228,25 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2, time3):
                 ennemi3.attack = False
 
         # systeme de dégat de tir pour l'ennemi n2
-        for tir in ennemi2.ondesliste:
+        if niveau % 2 == 0:
+            for tir in ennemi2.ondesliste:
 
-            if joueur.rect.x + 5 >= tir[0] - 330 >= joueur.rect.x - 4 and joueur.rect.y + 50 >= tir[
+                if joueur.rect.x + 5 >= tir[0] - 330 >= joueur.rect.x - 4 and joueur.rect.y + 50 >= tir[
                 1] - 180 >= joueur.rect.y - 50:
-                vie -= 1
+                    vie -= 1
         for tir in tirs_liste:
-
-            if ennemi2.rect.x + 5 >= tir[0] + 115 >= ennemi2.rect.x - 5 and ennemi2.rect.y + 50 >= tir[
+            if niveau % 2 == 0:
+                if ennemi2.rect.x + 5 >= tir[0] + 115 >= ennemi2.rect.x - 5 and ennemi2.rect.y + 50 >= tir[
                 1] + 60 >= ennemi2.rect.y - 60:
-                ennemi2.health -= 50
-            if ennemi.rect.x + 5 >= tir[0] + 216 >= ennemi.rect.x - 4 and ennemi.rect.y + 50 >= tir[
+                    ennemi2.health -= 50
+            if niveau:
+                if ennemi.rect.x + 5 >= tir[0] + 216 >= ennemi.rect.x - 4 and ennemi.rect.y + 50 >= tir[
                 1] + 45 >= ennemi.rect.y - 50:
-                ennemi.health -= 25
-            if ennemi3.rect.x + 5 >= tir[0] + 115 >= ennemi3.rect.x - 4 and ennemi3.rect.y + 50 >= tir[
+                    ennemi.health -= 25
+            if niveau % 3 == 0:
+                if ennemi3.rect.x + 5 >= tir[0] + 115 >= ennemi3.rect.x - 4 and ennemi3.rect.y + 50 >= tir[
                 1] + 60 >= ennemi3.rect.y - 50:
-                ennemi3.health -= 34
+                    ennemi3.health -= 34
         # GameOver
         if vie <= 0:
             inEndMenu = True
@@ -290,19 +296,20 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2, time3):
                 ennemi2.ondesliste.remove(tir)
         if ennemi.health <= 0:
             ennemi.isDead = True
+            niveau += 1
         if ennemi2.health <= 0:
             ennemi2.isDead = True
+            niveau += 1
         if ennemi3.health <= 0:
             ennemi3.isDead = True
 
-        if ennemi.isDead and ennemi2.isDead and ennemi3.isDead:
-            niveau = niveau + 1
-            ennemi.isDead = False
-            ennemi.health = ennemi.max_health
-            ennemi2.isDead = False
-            ennemi2.health = ennemi2.max_health
-            ennemi3.isDead = False
-            ennemi3.health = ennemi3.max_health
+        #if ennemi.isDead and ennemi2.isDead and ennemi3.isDead:
+            #niveau = niveau + 1
+            #ennemi.isDead = False
+            #ennemi.health = ennemi.max_health
+            #ennemi2.isDead = False
+            #ennemi2.health = ennemi2.max_health
+            #ennemi3.health = ennemi3.max_health
 
         if ennemi.isDead == True:
             score += 10
