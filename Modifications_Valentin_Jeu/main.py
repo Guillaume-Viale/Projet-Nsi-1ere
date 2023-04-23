@@ -204,28 +204,45 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2, time3):
                 joueur.isJump = False
 
         # les ennemies 1 et 3 suivent le perso
-        if joueur.rect.x > ennemi.rect.x - 220:
-            ennemi.rect.x += 2
-        if joueur.rect.x < ennemi.rect.x - 220:
-            ennemi.rect.x -= 2
-        #if joueur.rect.x == ennemi.rect.x - 220:
-            #vie = -1
-        if joueur.rect.x > ennemi3.rect.x - 120 and ennemi3.attack == False:
-            ennemi3.rect.x += 4
-        if joueur.rect.x < ennemi3.rect.x - 120 and ennemi3.attack == False:
-            ennemi3.rect.x -= 4
-        if joueur.rect.x != ennemi3.rect.x - 120 and ennemi3.attack == False:
-            time3 = 0
-
-        if ennemi3.rect.x - 123 <= joueur.rect.x <= ennemi3.rect.x - 117 and time3 > 1500:
-            ennemi3.attack = True
-        if ennemi3.attack == True:
-            if ennemi3.rect.y <= 140:
-                ennemi3.rect.y += 14
-            if ennemi3.rect.y >= 140 and time3 > 3000:
-                ennemi3.rect.y = -115
+        if niveau % 1 == 0:
+            if joueur.rect.x > ennemi.rect.x - 220:
+                ennemi.rect.x += 2
+                if joueur.rect.x + 5 >= ennemi.rect.x >= joueur.rect.x - 4: #and ennemi.rect.y  == joueur.rect.y :
+                        print("dead")
+            if joueur.rect.x < ennemi.rect.x - 220:
+                ennemi.rect.x -= 2
+                if joueur.rect.x + 5 >= ennemi.rect.x >= joueur.rect.x - 4: #and ennemi.rect.y  == joueur.rect.y :
+                        print("dead")
+            
+        if niveau % 3 == 0:
+            if joueur.rect.x > ennemi3.rect.x - 120 and ennemi3.attack == False:
+                ennemi3.rect.x += 4
+                if ennemi3.rect.x == joueur.rect.x:
+                        vie -= 1
+            if joueur.rect.x < ennemi3.rect.x - 120 and ennemi3.attack == False:
+                ennemi3.rect.x -= 4
+                if ennemi3.rect.x == joueur.rect.x:
+                        vie -= 1
+            if joueur.rect.x != ennemi3.rect.x - 120 and ennemi3.attack == False:
                 time3 = 0
+            if ennemi3.rect.x - 123 <= joueur.rect.x <= ennemi3.rect.x - 117 and time3 > 1500:
+                ennemi3.attack = True
+            if ennemi3.attack == True:
+                if ennemi3.rect.y <= 140:
+                    ennemi3.rect.y += 14
+                if ennemi3.rect.y >= 140 and time3 > 3000:
+                    ennemi3.rect.y = joueur.rect.y
+                    if joueur.rect.x > ennemi3.rect.x - 120 and ennemi3.attack == False:
+                        ennemi3.rect.x += 4
+                        if ennemi3.rect.x == joueur.rect.x:
+                            vie -= 1
+                    if joueur.rect.x < ennemi3.rect.x - 120 and ennemi3.attack == False:
+                        ennemi3.rect.x -= 4
+                        if ennemi3.rect.x == joueur.rect.x:
+                            vie -= 1
+                    time3 = 0
                 ennemi3.attack = False
+                
 
         # systeme de dégat de tir pour l'ennemi n2
         if niveau % 2 == 0:
@@ -254,11 +271,16 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2, time3):
         if MouseD == True:
             score = int(score) + 1
         if ennemi.isDead == True:
+            ennemi.rect.y += 600
             score = int(score) + 1
+            niveau = 2
 
         if ennemi2.isDead == True:
+            ennemi2.rect.y += 600
             score = int(score) + 1
+            niveau = 3
         if ennemi3.isDead == True:
+            ennemi3.rect.y += 600
             score = int(score) + 1
         # ecrit le score et le niveau
         Affscore = 'score '
@@ -296,12 +318,13 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2, time3):
                 ennemi2.ondesliste.remove(tir)
         if ennemi.health <= 0:
             ennemi.isDead = True
-            niveau += 1
+            niveau = 2
         if ennemi2.health <= 0:
             ennemi2.isDead = True
-            niveau += 1
+            niveau = 3
         if ennemi3.health <= 0:
             ennemi3.isDead = True
+            #InWinMenu = True
 
         #if ennemi.isDead and ennemi2.isDead and ennemi3.isDead:
             #niveau = niveau + 1
@@ -311,17 +334,11 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2, time3):
             #ennemi2.health = ennemi2.max_health
             #ennemi3.health = ennemi3.max_health
 
-        if ennemi.isDead == True:
-            score += 10
-            ennemi.rect.y += 600
-        if ennemi2.isDead == True:
-            score += 15
-            ennemi2.rect.y += 600
-        if ennemi3.isDead == True:
-            score += 20
-            ennemi3.rect.y += 600
+        
         if KEYS_PRESSED[K_l]:
-            niveau = niveau + 1
+            niveau = 3
+        if KEYS_PRESSED[K_m]:
+            niveau = 2
         if KEYS_PRESSED[pygame.K_ESCAPE]:
             run = False
 
