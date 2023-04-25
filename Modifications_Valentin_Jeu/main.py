@@ -16,7 +16,7 @@ boucle = 1
 
 # IMAGE
 fond = pygame.image.load("ImagesFond/CielFinal_20.png").convert()
-fond1 = pygame.image.load("ImagesFond/VilleBleu.jpeg").convert()
+fond1 = pygame.image.load("ImagesFond/VilleBleu.jpg").convert()
 fond2 = pygame.image.load("ImagesFond/VilleOrange.png").convert()
 # image de fond
 fond = pygame.transform.scale(fond, (700, 500))
@@ -33,7 +33,7 @@ sol2 = pygame.transform.scale(sol_terre, (675, 482))
 vie1 = pygame.image.load("ImagesHeros/Coeur_Heros.png").convert_alpha()
 vie2 = pygame.image.load("ImagesHeros/CoeurPerduHeros.png").convert_alpha()
 balle = pygame.image.load("ImagesHeros/attaque.png").convert_alpha()
-balle2 = pygame.image.load("ImagesAttaques/attaque2.png").convert_alpha()
+balle2 = pygame.image.load("ImagesHeros/attaque2.png").convert_alpha()
 balle_m = pygame.image.load("ImagesAttaques/wifi.png").convert_alpha()
 balle_m = pygame.transform.scale(balle_m, (50, 50))
 mechant1 = pygame.image.load("ImagesEnemies/M_Antenne.png").convert_alpha()
@@ -205,14 +205,21 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2, time3):
 
         # les ennemies 1 et 3 suivent le perso
         if niveau % 1 == 0:
+            
             if joueur.rect.x > ennemi.rect.x - 220:
                 ennemi.rect.x += 2
-                if joueur.rect.x + 5 >= ennemi.rect.x >= joueur.rect.x - 4: #and ennemi.rect.y  == joueur.rect.y :
-                        print("dead")
+              
+                if ennemi.rect.x - 221 <= joueur.rect.x <= ennemi.rect.x - 220 and joueur.rect.y  >= 50:
+                    vie -= 1
+                    
+              #  if joueur.rect.x + 5 >= ennemi.rect.x >= joueur.rect.x - 4: #and ennemi.rect.y  == joueur.rect.y :
+               #         print("dead")
             if joueur.rect.x < ennemi.rect.x - 220:
                 ennemi.rect.x -= 2
-                if joueur.rect.x + 5 >= ennemi.rect.x >= joueur.rect.x - 4: #and ennemi.rect.y  == joueur.rect.y :
-                        print("dead")
+                if ennemi.rect.x - 220 <= joueur.rect.x <= ennemi.rect.x - 219 and joueur.rect.y >= 50:
+                    vie -= 1
+               # if joueur.rect.x + 5 >= ennemi.rect.x >= joueur.rect.x - 4: #and ennemi.rect.y  == joueur.rect.y :
+                #        print("dead")
             
         if niveau % 3 == 0:
             if joueur.rect.x > ennemi3.rect.x - 120 and ennemi3.attack == False:
@@ -264,6 +271,7 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2, time3):
                 if ennemi3.rect.x + 5 >= tir[0] + 115 >= ennemi3.rect.x - 4 and ennemi3.rect.y + 50 >= tir[
                 1] + 60 >= ennemi3.rect.y - 50:
                     ennemi3.health -= 34
+       
         # GameOver
         if vie <= 0:
             inEndMenu = True
@@ -296,8 +304,10 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2, time3):
         if time > 500 and KEYS_PRESSED[K_SPACE]:
             if joueur.sens:
                 tirs_liste.append([joueur.rect.x - 4, joueur.rect.y - 5, joueur.sens])
+                joueur.image = pygame.image.load("ImagesHeros/TIR.png")
             else:
                 tirs_liste.append([joueur.rect.x - 4, joueur.rect.y - 35, joueur.sens])
+                joueur.image = pygame.image.load("ImagesHeros/TIR2.png")
             time = 0
             son = pygame.mixer.Sound("sons/laserShoot.wav")
             son.play()
