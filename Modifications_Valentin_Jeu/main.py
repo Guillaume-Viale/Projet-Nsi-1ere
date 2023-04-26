@@ -16,7 +16,7 @@ boucle = 1
 
 # IMAGE
 fond = pygame.image.load("ImagesFond/CielFinal_20.png").convert()
-fond1 = pygame.image.load("ImagesFond/VilleBleu.jpg").convert()
+fond1 = pygame.image.load("ImagesFond/VilleBleu.jpeg").convert()
 fond2 = pygame.image.load("ImagesFond/VilleOrange.png").convert()
 # image de fond
 fond = pygame.transform.scale(fond, (700, 500))
@@ -33,7 +33,7 @@ sol2 = pygame.transform.scale(sol_terre, (675, 482))
 vie1 = pygame.image.load("ImagesHeros/Coeur_Heros.png").convert_alpha()
 vie2 = pygame.image.load("ImagesHeros/CoeurPerduHeros.png").convert_alpha()
 balle = pygame.image.load("ImagesHeros/attaque.png").convert_alpha()
-balle2 = pygame.image.load("ImagesHeros/attaque2.png").convert_alpha()
+balle2 = pygame.image.load("ImagesAttaques/attaque2.png").convert_alpha()
 balle_m = pygame.image.load("ImagesAttaques/wifi.png").convert_alpha()
 balle_m = pygame.transform.scale(balle_m, (50, 50))
 mechant1 = pygame.image.load("ImagesEnemies/M_Antenne.png").convert_alpha()
@@ -57,6 +57,8 @@ Title = font.render('RETRO ADVENTURE', False, white)
 starttext = font.render('CLICK TO START', True, white)
 gameover = font.render('GAME OVER', True, white)
 endtext = font.render('TOO BAD TRY AGAIN !', True, white)
+transition2 = font.render('READY FOR LEVEL 2 ?', True, white)
+transition3 = font.render('READY FOR LEVEL 3 ?', True, white)
 # PAS_CHANGER
 
 time = 0
@@ -66,12 +68,14 @@ MouseD = False
 inMenu = True
 inGame = False
 inEndMenu = False
+Interlude2 = False
+Interlude3 = False
 state = False
 clock = pygame.time.Clock()
 tirs_liste = []
 
 
-def draw(inMenu, inGame, inEndMenu, scoreTexte, vie, levelTexte, niveau):
+def draw(inMenu, inGame, inEndMenu, scoreTexte, vie, levelTexte, niveau, Interlude2, Interlude3):
     # Menu Principale
     if inMenu:
         fenetre.blit(fondMain, (0, 0))
@@ -131,11 +135,17 @@ def draw(inMenu, inGame, inEndMenu, scoreTexte, vie, levelTexte, niveau):
         fenetre.blit(fondMain, (0, 0))
         fenetre.blit(endtext, (250, 350))
         fenetre.blit(gameover, (220, 100))
-
+    #Ecrans de transition entre les niveaux:
+    if Interlude2 == True:
+        fenetre.blit(fondMain, (0, 0))
+        fenetre.blit(transition2, (220, 100))
+    if Interlude3 == True:
+        fenetre.blit(fondMain, (0, 0))
+        fenetre.blit(transition3, (220, 100))
     pygame.display.update()
 
 
-def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2, time3):
+def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2, time3, Interlude2, Interlude3):
     ir = 0
     ig = 0
 
@@ -154,7 +164,14 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2, time3):
                 MouseD = True
             else:
                 MouseD = False
-
+            if Interlude2 == True:
+               if pygame.mouse.get_pressed()[0]:
+                   niveau = 2
+                   MouseD = True 
+            if Interlude3 == True:
+               if pygame.mouse.get_pressed()[0]:
+                   niveau = 3
+                   MouseD = True
             # regarde si le perso saute et si il va vers la gauche ou droite(Images)
             if event.type == KEYUP:
                 if event.key == K_RIGHT:
@@ -271,7 +288,6 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2, time3):
                 if ennemi3.rect.x + 5 >= tir[0] + 115 >= ennemi3.rect.x - 4 and ennemi3.rect.y + 50 >= tir[
                 1] + 60 >= ennemi3.rect.y - 50:
                     ennemi3.health -= 34
-       
         # GameOver
         if vie <= 0:
             inEndMenu = True
@@ -281,12 +297,14 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2, time3):
         if ennemi.isDead == True:
             ennemi.rect.y += 600
             score = int(score) + 1
-            niveau = 2
+            Interlude2 = True
+            #niveau = 2
 
         if ennemi2.isDead == True:
             ennemi2.rect.y += 600
             score = int(score) + 1
-            niveau = 3
+            Interlude3 = True
+            #niveau = 3
         if ennemi3.isDead == True:
             ennemi3.rect.y += 600
             score = int(score) + 1
@@ -304,10 +322,8 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2, time3):
         if time > 500 and KEYS_PRESSED[K_SPACE]:
             if joueur.sens:
                 tirs_liste.append([joueur.rect.x - 4, joueur.rect.y - 5, joueur.sens])
-                joueur.image = pygame.image.load("ImagesHeros/TIR.png")
             else:
                 tirs_liste.append([joueur.rect.x - 4, joueur.rect.y - 35, joueur.sens])
-                joueur.image = pygame.image.load("ImagesHeros/TIR2.png")
             time = 0
             son = pygame.mixer.Sound("sons/laserShoot.wav")
             son.play()
@@ -328,10 +344,10 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2, time3):
                 ennemi2.ondesliste.remove(tir)
         if ennemi.health <= 0:
             ennemi.isDead = True
-            niveau = 2
+            Interlude2 = True
         if ennemi2.health <= 0:
             ennemi2.isDead = True
-            niveau = 3
+            Interlude3 = True
         if ennemi3.health <= 0:
             ennemi3.isDead = True
             #InWinMenu = True
@@ -353,7 +369,7 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2, time3):
             run = False
 
         # Call draw function
-        draw(inMenu, inGame, inEndMenu, scoreTexte, vie, levelTexte, niveau)
+        draw(inMenu, inGame, inEndMenu, scoreTexte, vie, levelTexte, niveau, Interlude2, Interlude3)
 
 
 # Class sound:
@@ -363,6 +379,6 @@ pygame.mixer.music.set_volume(3.0)
 pygame.mixer.music.play(loops=-1)
 
 if __name__ == '__main__':
-    main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2, time3)
+    main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2, time3, Interlude2, Interlude3)
 pygame.quit()
 
