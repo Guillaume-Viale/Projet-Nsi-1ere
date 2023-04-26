@@ -221,7 +221,7 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2, time3, Inte
                 joueur.isJump = False
 
         # les ennemies 1 et 3 suivent le perso
-        if niveau % 1 == 0:
+        if niveau == 1:
             
             if joueur.rect.x > ennemi.rect.x - 220:
                 ennemi.rect.x += 2
