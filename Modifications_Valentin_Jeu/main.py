@@ -166,10 +166,12 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2, time3, Inte
                 MouseD = False
             if Interlude2 == True:
                if pygame.mouse.get_pressed()[0]:
+                   Interlude2 = False 
                    niveau = 2
                    MouseD = True 
             if Interlude3 == True:
                if pygame.mouse.get_pressed()[0]:
+                   Interlude3 = False
                    niveau = 3
                    MouseD = True
             # regarde si le perso saute et si il va vers la gauche ou droite(Images)
