@@ -82,7 +82,7 @@ def draw(inMenu, inGame, inEndMenu, scoreTexte, vie, levelTexte, niveau, Interlu
     # Menu Principale
     if inMenu:
         fenetre.blit(fondMain, (0, 0))
-        fenetre.blit(starttext, (230, 400))
+        fenetre.blit(starttext, (250, 400))
         fenetre.blit(Title, (230, 100))
     if inGame == True:
         # le jeu commence
@@ -136,8 +136,8 @@ def draw(inMenu, inGame, inEndMenu, scoreTexte, vie, levelTexte, niveau, Interlu
     # GameOver
     if inEndMenu == True:
         fenetre.blit(fondMain, (0, 0))
-        fenetre.blit(endtext, (250, 350))
-        fenetre.blit(gameover, (220, 100))
+        fenetre.blit(endtext, (200, 400))
+        fenetre.blit(gameover, (240, 100))
     #Ecrans de transition entre les niveaux:
     if Interlude2 == True and MouseD == False:
         fenetre.blit(fondMain, (0, 0))
@@ -163,7 +163,7 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2, time3, Inte
         time += dt
         time2 += dt
         time3 += dt
-        if Fin == False or Interlude3 == False or Interlude2 == False or inGame:    
+        if (Fin == False and Interlude3 == False and Interlude2 == False) and inGame:    
             score +=float(dt)
         
         # Event handler
@@ -219,7 +219,7 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2, time3, Inte
                 joueur.move_jump(90.0)
         # regarde si le perso est sur le sol
         if not (joueur.isJump):
-            if KEYS_PRESSED[K_UP]:
+            if KEYS_PRESSED[K_UP] and (Fin == False and Interlude3 == False and Interlude2 == False) and inGame:
                 joueur.isJump = True
                 son2 = pygame.mixer.Sound("sons/jump.wav")
                 son2.play()
@@ -233,7 +233,7 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2, time3, Inte
                 joueur.isJump = False
 
         # les ennemies 1 et 3 suivent le perso
-        if niveau == 1:
+        if niveau == 1 and inGame:
             
             if joueur.rect.x > ennemi.rect.x - 220:
                 ennemi.rect.x += 2
@@ -245,7 +245,7 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2, time3, Inte
                #         print("dead")
             if joueur.rect.x < ennemi.rect.x - 220:
                 ennemi.rect.x -= 2
-                if ennemi.rect.x - 223 <= joueur.rect.x <= ennemi.rect.x - 218 and joueur.rect.y >= 50 and inGame:
+                if ennemi.rect.x - 223 <= joueur.rect.x <= ennemi.rect.x - 218 and joueur.rect.y >= 50 and inGame and not(Interlude2):
                     vie -= 1
                # if joueur.rect.x + 5 >= ennemi.rect.x >= joueur.rect.x - 4: #and ennemi.rect.y  == joueur.rect.y :
                 #        print("dead")
@@ -259,12 +259,12 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2, time3, Inte
                 
             if joueur.rect.x != ennemi3.rect.x - 120 and ennemi3.attack == False:
                 time3 = 0
-            if ennemi3.rect.x - 135 <= joueur.rect.x <= ennemi3.rect.x - 105 and time3 > 1500:
+            if ennemi3.rect.x - 145 <= joueur.rect.x <= ennemi3.rect.x - 95 and time3 > 1000:
                 ennemi3.attack = True
             if ennemi3.attack == True:
                 if ennemi3.rect.y <= 140:
                     ennemi3.rect.y += 14
-                if ennemi3.rect.y >= 140 and time3 > 3000:
+                if ennemi3.rect.y >= 140 and time3 > 2000:
                     ennemi3.rect.y = -115
                     
                     time3 = 0
@@ -277,21 +277,23 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2, time3, Inte
             for tir in ennemi2.ondesliste:
 
                 if joueur.rect.x + 5 >= tir[0] - 330 >= joueur.rect.x - 4 and joueur.rect.y + 50 >= tir[
-                1] - 180 >= joueur.rect.y - 50 and not(Interlude2):
+                1] - 180 >= joueur.rect.y - 50 and not(Interlude3)and not(Interlude2):
                     vie -= 1
+            
+            
         
         
         for tir in tirs_liste:
             if niveau % 2 == 0:
-                if ennemi2.rect.x + 15 >= tir[0] + 115 >= ennemi2.rect.x - 15 and ennemi2.rect.y + 50 >= tir[
+                if ennemi2.rect.x + 10 >= tir[0] + 115 >= ennemi2.rect.x - 10 and ennemi2.rect.y + 50 >= tir[
                 1] + 60 >= ennemi2.rect.y - 60:
-                    ennemi2.health -= 50
+                    ennemi2.health -= 25
             elif niveau % 3 == 0:
-                if ennemi3.rect.x + 15 >= tir[0] + 115 >= ennemi3.rect.x - 15 and ennemi3.rect.y + 50 >= tir[
+                if ennemi3.rect.x + 10 >= tir[0] + 115 >= ennemi3.rect.x - 10 and ennemi3.rect.y + 50 >= tir[
                 1] + 60 >= ennemi3.rect.y - 60:
-                    ennemi3.health -= 34
+                    ennemi3.health -= 25
             else:
-                if ennemi.rect.x + 15 >= tir[0] + 220 >= ennemi.rect.x - 15 and ennemi.rect.y + 50 >= tir[
+                if ennemi.rect.x + 17 >= tir[0] + 220 >= ennemi.rect.x - 17 and ennemi.rect.y + 50 >= tir[
                 1] + 60 >= ennemi.rect.y - 60:
                     ennemi.health -= 25
         # GameOver
@@ -318,17 +320,17 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2, time3, Inte
             
             Fin = True
         # ecrit le score et le niveau
-        Affscore = 'time '
+        Affscore = 'time: '
         Affscore += str(score/1000)
 
-        Afflevel = 'level '
+        Afflevel = 'level: '
         Afflevel += str(niveau)
 
         scoreTexte = font.render(Affscore, True, white)
         levelTexte = font.render(Afflevel, True, white)
 
         # systeme de tir du perso, 2fois par seconde
-        if time > 500 and KEYS_PRESSED[K_SPACE]:
+        if time > 500 and KEYS_PRESSED[K_SPACE] and (Fin == False and Interlude3 == False and Interlude2 == False) and inGame:
             if joueur.sens:
                 tirs_liste.append([joueur.rect.x - 4, joueur.rect.y - 5, joueur.sens])
             else:
@@ -344,9 +346,9 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2, time3, Inte
             if -350> tir[0] or 350<tir[0]:
                 tirs_liste.remove(tir)
         # systeme de tir pour le mechant 2
-        if time2 > 2000 and ennemi2.isDead == False:
-            ennemi2.ondesliste.append([ennemi2.rect.x + 115, ennemi2.rect.y + 120])
-            time2 = 0
+        if time2 > 1000 and ennemi2.isDead == False and not(Interlude2) and not(Interlude3):
+                ennemi2.ondesliste.append([ennemi2.rect.x + 115, ennemi2.rect.y + 120])
+                time2 = 0
         for tir in ennemi2.ondesliste:
             tir[0] -= 6
             if 0> tir[0] or 815<tir[0]:
