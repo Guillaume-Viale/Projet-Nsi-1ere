@@ -29,7 +29,7 @@ sol_herbe = pygame.image.load("ImagesFond/pixil-frameHerbe.png").convert_alpha()
 sol_terre = pygame.image.load("ImagesFond/TerreFinal700500.png").convert_alpha()
 sol_terre = pygame.transform.scale(sol_terre, (675, 482))
 sol2 = pygame.image.load("ImagesFond/Pierre.png").convert_alpha()
-sol2 = pygame.transform.scale(sol_terre, (675, 482))
+sol2 = pygame.transform.scale(sol2, (675, 482))
 vie1 = pygame.image.load("ImagesHeros/Coeur_Heros.png").convert_alpha()
 vie2 = pygame.image.load("ImagesHeros/CoeurPerduHeros.png").convert_alpha()
 balle = pygame.image.load("ImagesHeros/attaque.png").convert_alpha()
@@ -89,12 +89,23 @@ def draw(inMenu, inGame, inEndMenu, scoreTexte, vie, levelTexte, niveau, Interlu
         if niveau % 2 == 0:
             fenetre.blit(fond1, (0, 0))
             fenetre.blit(ennemi2.image, ennemi2.rect)
+            for i in range(-450, 450, 45):
+                fenetre.blit(sol2, (i, 145))
+                fenetre.blit(sol2, (i + 50, 205))
         elif niveau % 3 == 0:
             fenetre.blit(fond2, (0, 0))
             fenetre.blit(ennemi3.image, ennemi3.rect)
+            for i in range(-450, 450, 45):
+                fenetre.blit(sol2, (i, 145))
+                fenetre.blit(sol2, (i + 50, 205))
         else:
             fenetre.blit(fond, (0, 0))
             fenetre.blit(ennemi.image, ennemi.rect)
+            for i in range(-450, 350, 45):
+                fenetre.blit(sol_herbe, (i, 125))
+                fenetre.blit(sol_terre, (i + 50, 175))
+                fenetre.blit(sol_terre, (i + 50, 205))
+                fenetre.blit(sol_terre, (i + 50, 235))
         if vie == 3:
             fenetre.blit(vie1, (-300, -150))
             fenetre.blit(vie1, (-250, -150))
@@ -116,11 +127,7 @@ def draw(inMenu, inGame, inEndMenu, scoreTexte, vie, levelTexte, niveau, Interlu
         #fenetre.blit(ennemi.image, ennemi.rect)
         #fenetre.blit(ennemi2.image, ennemi2.rect)
         #fenetre.blit(ennemi3.image, ennemi3.rect)
-        for i in range(-450, 350, 45):
-            fenetre.blit(sol_herbe, (i, 125))
-            fenetre.blit(sol_terre, (i + 50, 175))
-            fenetre.blit(sol_terre, (i + 50, 205))
-            fenetre.blit(sol_terre, (i + 50, 235))
+        
         fenetre.blit(scoreTexte, (550, 40))
         fenetre.blit(levelTexte, (550, 80))
         # rendement graphique des tirs
@@ -259,12 +266,12 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2, time3, Inte
                 
             if joueur.rect.x != ennemi3.rect.x - 120 and ennemi3.attack == False:
                 time3 = 0
-            if ennemi3.rect.x - 145 <= joueur.rect.x <= ennemi3.rect.x - 95 and time3 > 1000:
+            if ennemi3.rect.x - 145 <= joueur.rect.x <= ennemi3.rect.x - 95 and time3 > 800:
                 ennemi3.attack = True
             if ennemi3.attack == True:
                 if ennemi3.rect.y <= 140:
                     ennemi3.rect.y += 14
-                if ennemi3.rect.y >= 140 and time3 > 2000:
+                if ennemi3.rect.y >= 140 and time3 > 2500:
                     ennemi3.rect.y = -115
                     
                     time3 = 0
