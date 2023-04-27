@@ -17,9 +17,13 @@ Nous avons finalement décidé d'opter pour l'idée 1. Le joueur incarne un pers
 COMMANDES:
  
 sauter = flèche haut
+
 allez vers la droite = flèche droite
+
 allez vers la gauche = flèche gauche
+
 tirer = espace
+
 Pour passer d'un niveau à un autre il faut cliquer avec votre souris ou votre trackpad sur l'écran.
  
  
