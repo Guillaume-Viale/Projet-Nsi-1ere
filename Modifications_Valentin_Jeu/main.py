@@ -163,7 +163,7 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2, time3, Inte
         time += dt
         time2 += dt
         time3 += dt
-        if not(Fin):    
+        if Fin == False or Interlude3 == False or Interlude2 == False or inGame:    
             score +=float(dt)
         
         # Event handler
@@ -269,7 +269,7 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2, time3, Inte
                     
                     time3 = 0
                     ennemi3.attack=False
-            if ennemi3.rect.x-125<= joueur.rect.x<= ennemi3.rect.x-115 and ennemi3.rect.y-45<=joueur.rect.y<=ennemi3.rect.y-35:
+            if ennemi3.rect.x-125<= joueur.rect.x<= ennemi3.rect.x-115 and ennemi3.rect.y-45<=joueur.rect.y<=ennemi3.rect.y-35 and not(Interlude3):
                 vie-=1
 
         # systeme de dégat de tir pour l'ennemi n2
@@ -277,7 +277,7 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2, time3, Inte
             for tir in ennemi2.ondesliste:
 
                 if joueur.rect.x + 5 >= tir[0] - 330 >= joueur.rect.x - 4 and joueur.rect.y + 50 >= tir[
-                1] - 180 >= joueur.rect.y - 50:
+                1] - 180 >= joueur.rect.y - 50 and not(Interlude2):
                     vie -= 1
         
         
