@@ -8,11 +8,11 @@ from pygame import mixer
 from monstre2 import *
 from monstre3 import *
 import scripts
-
+#creation de la fenetre de jeu
 pygame.init()
 fenetre = pygame.display.set_mode((700, 500))
-# pygame.display.toggle_fullscreen()
-boucle = 1
+
+
 
 # IMAGE
 fond = pygame.image.load("ImagesFond/CielFinal_20.png").convert()
@@ -25,26 +25,30 @@ fond2 = pygame.transform.scale(fond2, (700, 370))
 fondMain = pygame.image.load("ImagesFond/Accueil.png").convert()
 # fond Menu principale
 fondMain = pygame.transform.scale(fondMain, (700, 500))
+#sols
 sol_herbe = pygame.image.load("ImagesFond/pixil-frameHerbe.png").convert_alpha()
 sol_terre = pygame.image.load("ImagesFond/TerreFinal700500.png").convert_alpha()
 sol_terre = pygame.transform.scale(sol_terre, (675, 482))
 sol2 = pygame.image.load("ImagesFond/Pierre.png").convert_alpha()
 sol2 = pygame.transform.scale(sol2, (675, 482))
+#UI
 vie1 = pygame.image.load("ImagesHeros/Coeur_Heros.png").convert_alpha()
 vie2 = pygame.image.load("ImagesHeros/CoeurPerduHeros.png").convert_alpha()
+#Image de tir
 balle = pygame.image.load("ImagesHeros/attaque.png").convert_alpha()
 balle2 = pygame.image.load("ImagesHeros/attaque2.png").convert_alpha()
 balle_m = pygame.image.load("ImagesAttaques/wifi.png").convert_alpha()
 balle_m = pygame.transform.scale(balle_m, (50, 50))
+#image des méchants
 mechant1 = pygame.image.load("ImagesEnemies/M_Antenne.png").convert_alpha()
 mechant2 = pygame.image.load("ImagesEnemies/M_Imprimante.png").convert_alpha()
 mechant3 = pygame.image.load("ImagesEnemies/M_Smartphone.png").convert_alpha()
-# mechant4=pygame.image.load("").convert_alpha()
+#implementations des classes(autres programmes)
 joueur = scripts.Player()
 ennemi = scripts.Monstre()
 ennemi2 = Monstre2()
 ennemi3 = Monstre3()
-# GAMEPLAY
+# variable liée au jeu
 score = 0
 vie = 3
 niveau = 1
@@ -61,20 +65,25 @@ transition2 = font.render('READY FOR LEVEL 2 ?', True, white)
 transition3 = font.render('READY FOR LEVEL 3 ?', True, white)
 fin_texte = font.render('WELL PLAYED!', True, white)
 
-# PAS_CHANGER
-
+# VARIABLE A NE PAS CHANGER
+#timers
 time = 0
 time2 = 0
 time3 = 0
+#clic droit
 MouseD = False
+#booléen qui donnent l'état du jeu
 inMenu = True
 inGame = False
 inEndMenu = False
 Interlude2 = False
 Interlude3 = False
 Fin = False
+#orientation du perso (droite= True, gauche = false)
 state = False
+#clock du jeu(ms)
 clock = pygame.time.Clock()
+#mecanique de tir
 tirs_liste = []
 
 
@@ -86,18 +95,21 @@ def draw(inMenu, inGame, inEndMenu, scoreTexte, vie, levelTexte, niveau, Interlu
         fenetre.blit(Title, (230, 100))
     if inGame == True:
         # le jeu commence
+        #niveau 2
         if niveau % 2 == 0:
             fenetre.blit(fond1, (0, 0))
             fenetre.blit(ennemi2.image, ennemi2.rect)
             for i in range(-450, 450, 45):
                 fenetre.blit(sol2, (i, 145))
                 fenetre.blit(sol2, (i + 50, 205))
+        #niveau 3
         elif niveau % 3 == 0:
             fenetre.blit(fond2, (0, 0))
             fenetre.blit(ennemi3.image, ennemi3.rect)
             for i in range(-450, 450, 45):
                 fenetre.blit(sol2, (i, 145))
                 fenetre.blit(sol2, (i + 50, 205))
+        #niveau 1
         else:
             fenetre.blit(fond, (0, 0))
             fenetre.blit(ennemi.image, ennemi.rect)
@@ -106,6 +118,7 @@ def draw(inMenu, inGame, inEndMenu, scoreTexte, vie, levelTexte, niveau, Interlu
                 fenetre.blit(sol_terre, (i + 50, 175))
                 fenetre.blit(sol_terre, (i + 50, 205))
                 fenetre.blit(sol_terre, (i + 50, 235))
+        #UI pour la vie du joueur
         if vie == 3:
             fenetre.blit(vie1, (-300, -150))
             fenetre.blit(vie1, (-250, -150))
@@ -124,13 +137,11 @@ def draw(inMenu, inGame, inEndMenu, scoreTexte, vie, levelTexte, niveau, Interlu
                     fenetre.blit(vie2, (-200, -150))
         # tout les elemnts du jeu(sol,perso,ennemis...)
         fenetre.blit(joueur.image, joueur.rect)
-        #fenetre.blit(ennemi.image, ennemi.rect)
-        #fenetre.blit(ennemi2.image, ennemi2.rect)
-        #fenetre.blit(ennemi3.image, ennemi3.rect)
+        
         
         fenetre.blit(scoreTexte, (550, 40))
         fenetre.blit(levelTexte, (550, 80))
-        # rendement graphique des tirs
+        #Image de tirs (ennemi + joueur)
         if niveau % 2 == 0:
             for tirs in ennemi2.ondesliste:
                 fenetre.blit(balle_m, (tirs[0], tirs[1]))
@@ -152,6 +163,7 @@ def draw(inMenu, inGame, inEndMenu, scoreTexte, vie, levelTexte, niveau, Interlu
     if Interlude3 == True:
         fenetre.blit(fondMain, (0, 0))
         fenetre.blit(transition3, (220, 100))
+    #écran de fin
     if Fin == True:
         fenetre.blit(fondMain, (0, 0))
         fenetre.blit(fin_texte,(450,200))
@@ -162,32 +174,34 @@ def draw(inMenu, inGame, inEndMenu, scoreTexte, vie, levelTexte, niveau, Interlu
 def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2, time3, Interlude2, Interlude3,Fin):
     ir = 0
     ig = 0
-
+    #boucle principal
     run = True
     while run:
         # necessaire pour le systeme de timer
         dt = clock.tick()
-        time += dt
-        time2 += dt
-        time3 += dt
+        time += dt #timer tir joueur
+        time2 += dt #timer tir ennemi2
+        time3 += dt #timer enneli3 (descente)
         if (Fin == False and Interlude3 == False and Interlude2 == False) and inGame:    
-            score +=float(dt)
+            score +=float(dt) #timer du jeu
         
         # Event handler
         for event in pygame.event.get():
+            #sortie du menu avec clic droit
             if pygame.mouse.get_pressed()[0]:
                 inMenu = False
                 inGame = True
                 MouseD = True
             else:
                 MouseD = False
+            #sortie de l'interlude avec clic droit
             if Interlude2 == True:
                if MouseD:
                    Interlude2 = False 
                    niveau = 2
-                    
+            #sortie de l'interlude avec clic droit        
             if Interlude3 == True:
-               if pygame.mouse.get_pressed()[0]:
+               if MouseD:
                    Interlude3 = False
                    niveau = 3
                    MouseD = True
@@ -204,7 +218,7 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2, time3, Inte
 
             if event.type == pygame.QUIT:
                 run = False
-
+        #nom donnée a la liste des touches et leur état
         KEYS_PRESSED = pygame.key.get_pressed()
 
         # Mouvement a droite
@@ -226,6 +240,7 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2, time3, Inte
                 joueur.move_jump(90.0)
         # regarde si le perso est sur le sol
         if not (joueur.isJump):
+            #méthode pour commencer le saut
             if KEYS_PRESSED[K_UP] and (Fin == False and Interlude3 == False and Interlude2 == False) and inGame:
                 joueur.isJump = True
                 son2 = pygame.mixer.Sound("sons/jump.wav")
@@ -239,25 +254,25 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2, time3, Inte
                 joueur.jumpcount = 10
                 joueur.isJump = False
 
-        # les ennemies 1 et 3 suivent le perso
+        #niveau 1: l'imprimante;  l' ennemie 1 suit le jouer
         if niveau == 1 and inGame:
             
             if joueur.rect.x > ennemi.rect.x - 220:
                 ennemi.rect.x += 2
-              
+                #le jouer perd de la vie si il touche l'ennemi
                 if ennemi.rect.x - 221 <= joueur.rect.x <= ennemi.rect.x - 220 and joueur.rect.y  >= 50 and inGame:
                     vie -= 1
                     
-              #  if joueur.rect.x + 5 >= ennemi.rect.x >= joueur.rect.x - 4: #and ennemi.rect.y  == joueur.rect.y :
-               #         print("dead")
+              
             if joueur.rect.x < ennemi.rect.x - 220:
                 ennemi.rect.x -= 2
+                #le jouer perd de la vie si il touche l'ennemi
                 if ennemi.rect.x - 223 <= joueur.rect.x <= ennemi.rect.x - 218 and joueur.rect.y >= 50 and inGame and not(Interlude2):
                     vie -= 1
-               # if joueur.rect.x + 5 >= ennemi.rect.x >= joueur.rect.x - 4: #and ennemi.rect.y  == joueur.rect.y :
-                #        print("dead")
-            
+               
+        #niveau 3, le telephone    
         if niveau % 3 == 0:
+            #l'ennemi3 suit le joueur
             if joueur.rect.x > ennemi3.rect.x - 120 and ennemi3.attack == False:
                 ennemi3.rect.x += 4
                 
@@ -266,6 +281,7 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2, time3, Inte
                 
             if joueur.rect.x != ennemi3.rect.x - 120 and ennemi3.attack == False:
                 time3 = 0
+            #attaque de l'ennemi3
             if ennemi3.rect.x - 145 <= joueur.rect.x <= ennemi3.rect.x - 95 and time3 > 800:
                 ennemi3.attack = True
             if ennemi3.attack == True:
@@ -276,20 +292,19 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2, time3, Inte
                     
                     time3 = 0
                     ennemi3.attack=False
+            #le jouer perd de la vie
             if ennemi3.rect.x-125<= joueur.rect.x<= ennemi3.rect.x-115 and ennemi3.rect.y-45<=joueur.rect.y<=ennemi3.rect.y-35 and not(Interlude3):
                 vie-=1
 
-        # systeme de dégat de tir pour l'ennemi n2
+        #niveau 2: l'antenne; systeme de dégat de tir pour l'ennemi n2
         if niveau % 2 == 0:
+            #systeme de degats pour le tir
             for tir in ennemi2.ondesliste:
 
                 if joueur.rect.x + 5 >= tir[0] - 330 >= joueur.rect.x - 4 and joueur.rect.y + 50 >= tir[
                 1] - 180 >= joueur.rect.y - 50 and not(Interlude3)and not(Interlude2):
                     vie -= 1
-            
-            
-        
-        
+        #les degats sur les ennemis créer par le joueur    
         for tir in tirs_liste:
             if niveau % 2 == 0:
                 if ennemi2.rect.x + 10 >= tir[0] + 115 >= ennemi2.rect.x - 10 and ennemi2.rect.y + 50 >= tir[
@@ -306,29 +321,30 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2, time3, Inte
         # GameOver
         if vie <= 0:
             inEndMenu = True
-        # systeme de score(a changer)
         
-            
+        
+        #l'imprimante est detruite
         if ennemi.isDead == True:
             ennemi.rect.y += 600
             
             if niveau == 1:
                 Interlude2 = True
             #niveau = 2
-
+        #l'antenne est detruite
         if ennemi2.isDead == True:
             ennemi2.rect.y += 600
             
             if niveau == 2:
                 Interlude3 = True
             #niveau = 3
+        #le télephone estdetruit
         if ennemi3.isDead == True:
             ennemi3.rect.y += 600
             
             Fin = True
-        # ecrit le score et le niveau
+        # ecrit le temps et le niveau
         Affscore = 'time: '
-        Affscore += str(score/1000)
+        Affscore += str(score/1000)  #temps en seconde
 
         Afflevel = 'level: '
         Afflevel += str(niveau)
@@ -368,16 +384,7 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2, time3, Inte
            
         if ennemi3.health <= 0:
             ennemi3.isDead = True
-            #InWinMenu = True
-
-        #if ennemi.isDead and ennemi2.isDead and ennemi3.isDead:
-            #niveau = niveau + 1
-            #ennemi.isDead = False
-            #ennemi.health = ennemi.max_health
-            #ennemi2.isDead = False
-            #ennemi2.health = ennemi2.max_health
-            #ennemi3.health = ennemi3.max_health
-
+            
         
         if KEYS_PRESSED[K_l]:
             niveau = 3
