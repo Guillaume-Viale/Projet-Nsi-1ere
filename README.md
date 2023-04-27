@@ -1,6 +1,7 @@
-#Projet-Nsi-1ere: 
+*Projet NSI 1ere:* 
 
-Projet NSI 1ere; Groupe: Yannick Tamko, Valentin Bernacki, Guillaume Viale
+Groupe: Yannick Tamko, Valentin Bernacki, Guillaume Viale
+
 
 Tous les fichiers utilisés sont dans les répertoirs "Modifications_valentin_jeu".
 Le fichier qui contient le code est le fichier "main.py"
