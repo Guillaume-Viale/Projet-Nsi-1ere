@@ -371,11 +371,11 @@ def main(inMenu, inGame, inEndMenu, vie, temps, niveau, time, time2, time3, Inte
             if -350> tir[0] or 350<tir[0]:
                 tirs_liste.remove(tir)
         # systeme de tir pour le mechant 2
-        if time2 > 800 and ennemi2.isDead == False and not(Interlude2) and not(Interlude3):
+        if time2 > 900 and ennemi2.isDead == False and niveau == 2:
                 ennemi2.ondesliste.append([ennemi2.rect.x + 115, ennemi2.rect.y + 120])
                 time2 = 0
         for tir in ennemi2.ondesliste:
-            tir[0] -= 6
+            tir[0] -= 5
             if 0> tir[0] or 815<tir[0]:
                 ennemi2.ondesliste.remove(tir)
         #systeme de mort pour les méchants
