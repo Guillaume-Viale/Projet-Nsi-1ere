@@ -356,8 +356,10 @@ def main(inMenu, inGame, inEndMenu, vie, score, niveau, time, time2, time3, Inte
         if time > 500 and KEYS_PRESSED[K_SPACE] and (Fin == False and Interlude3 == False and Interlude2 == False) and inGame:
             if joueur.sens:
                 tirs_liste.append([joueur.rect.x - 4, joueur.rect.y - 5, joueur.sens])
+                joueur.image = pygame.image.load("ImagesHeros/TIR.png")
             else:
                 tirs_liste.append([joueur.rect.x - 4, joueur.rect.y - 35, joueur.sens])
+                joueur.image = pygame.image.load("ImagesHeros/TIR2.png")
             time = 0
             son = pygame.mixer.Sound("sons/laserShoot.wav")
             son.play()
