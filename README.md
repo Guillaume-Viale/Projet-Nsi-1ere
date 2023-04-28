@@ -3,19 +3,20 @@
 Groupe: Yannick Tamko, Valentin Bernacki, Guillaume Viale
 
 
-Tous les fichiers utilisés sont dans les répertoirs "Modifications_valentin_jeu".
+Tous les fichiers utilisés sont dans les répertoires "Modifications_valentin_jeu".
 Le fichier qui contient le code est le fichier "main.py"
 
-idée 1:  Tout d'abord ce serait est un jeu de plateforme en 2D du style de Mario. Notre héro serait un homme issu des annneés 80. Les antagonitese seraient les différentes inventions technologique depuis les annneés 80 jusqu'à notre ère.
+idée 1:  Tout d'abord, nous voulions un jeu de plateforme en 2D du style de "Mario". Notre héro serait un homme issu des annneés 80. Les ennemis seraient certaines des inventions technologiques depuis les annneés 80 jusqu'à notre époque.
 
-idée 2:  Faire un jeu single player ou l'on incarne une voiture qui doit échapper à la police avce différents niveaux et des obstacles à éviter.
+idée 2:  Faire un jeu single player où l'on incarne une voiture qui doit échapper à la police avec différents niveaux et des obstacles à éviter.
 
-idée 3:   Faire un jeu ou l'on contrôle un avion qui doit faire le plus de chemin possible en tuant le plus d'ennemis possibles. Plus l'avion avancerait plus la difficuilté augmenterait du genre Shoot'Em Up. 
+idée 3:   Faire un jeu où l'on contrôle un avion qui doit faire le plus de chemin possible en tuant le plus d'ennemis possibles. Plus l'avion avancerait plus la difficulté augmenterait du genre Shoot'Em Up. 
 
-Nous avons finalement décidé d'opter pour l'idée 1. Le joueur incarne un personnage des années 80. Il y a 3 niveaux à passer pour finir le jeu. Le but est de finir les 3 niveaux en le moins de temps possible. Votre temps sera affiché à la fin après avoir battu les 3 monstres. Le choix des monstres et de leur design est lié à l'évolution de la technologie dans le temps. Plus les niveaux avancent plus le monstre a l'apparence d'un appareil electronique récent.
+Nous avons finalement décidé d'opter pour l'idée 1. Le joueur incarne un personnage des années 80. Il y a 3 niveaux à passer pour finir le jeu. Le but est de finir les 3 niveaux le plus rapidement possible. Votre temps sera affiché à la fin après avoir battu les 3 monstres. Le choix des monstres et de leur design est lié à l'évolution de la technologie dans le temps. Plus les niveaux avancent plus le monstre a l'apparence d'un appareil électronique récent.
 
 RECORDS PERSONNEL DE CHAQUE DEV (sans perte de vie = perfect)
 Guillaume: 14.232s
+Valentin: 13.875s
 
 COMMANDES:
  
@@ -40,9 +41,9 @@ CAHIER DES CHARGES:
      - Espace = tirer
 - Graphisme: 2D + vue de côté 
 - 3 niveaux de monstres à éliminer
-- 3 vies representées chacune par des coeurs
-- Plus les anneés avancent, les monstres change afin de représenter l'évolution de la technologie
-- Présence de PNJ: Ils attaquent le personnge principal(ce sont les ennemis) et disparaissent si le personnage les détruit
+- 3 vies representées chacune par des têtes du héro
+- Plus les anneés avancent, plus les monstres changent afin de représenter l'évolution de la technologie
+- Présence de PNJ: Ils attaquent le personnge principal (ce sont les ennemis) et disparaissent si le personnage les détruit
 - Présence de musique: Oui
 - Système de projectiles: oui, le personnage aura un pistolet à eau afin de détruire les différentes machines.
 - Jeu/inspiration: Super Mario Bros (Première version)
