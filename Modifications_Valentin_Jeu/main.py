@@ -282,7 +282,7 @@ def main(inMenu, inGame, inEndMenu, vie, temps, niveau, time, time2, time3, Inte
             if joueur.rect.x != ennemi3.rect.x - 120 and ennemi3.attack == False:
                 time3 = 0
             #attaque de l'ennemi3
-            if ennemi3.rect.x - 145 <= joueur.rect.x <= ennemi3.rect.x - 95 and time3 > 800:
+            if ennemi3.rect.x - 20 >= joueur.rect.x >= ennemi3.rect.x - 240 and time3 > 800:
                 ennemi3.attack = True
             if ennemi3.attack == True:
                 if ennemi3.rect.y <= 140:
