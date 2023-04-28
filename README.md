@@ -14,6 +14,9 @@ idée 3:   Faire un jeu ou l'on contrôle un avion qui doit faire le plus de che
 
 Nous avons finalement décidé d'opter pour l'idée 1. Le joueur incarne un personnage des années 80. Il y a 3 niveaux à passer pour finir le jeu. Le but est de finir les 3 niveaux en le moins de temps possible. Votre temps sera affiché à la fin après avoir battu les 3 monstres. Le choix des monstres et de leur design est lié à l'évolution de la technologie dans le temps. Plus les niveaux avancent plus le monstre a l'apparence d'un appareil electronique récent.
 
+RECORDS PERSONNEL DE CHAQUE DEV (sans perte de vie = perfect)
+Guillaume: 14.232s
+
 COMMANDES:
  
 - sauter = flèche haut
